@@ -130,7 +130,7 @@ section{margin-top:var(--s-7)}
 <header>
 <p class="eyebrow">HACKATHON · 3 HOURS · WORKFLOW · 2026.10.30</p>
 <h1>3시간 안에 구현하고, 네 말로 설명한다.</h1>
-<p class="lead"><strong>독립 조사는 동시에 하고, 결과는 하나의 설계 초안에 합친다.</strong><br>현재 기능 하나를 구현하는 동안 너는 그 지도를 읽는다. 함께 E2E를 확인하고 설명한 뒤 다음 기능으로 간다.</p>
+<p class="lead"><strong>독립 조사는 동시에 하고, 결과는 하나의 설계 초안에 합친다.</strong><br>현재 기능 하나를 구현하는 동안 너는 지도와 누적 복습 문서를 읽는다. 함께 E2E를 확인하고 설명한 뒤 다음 기능으로 간다.</p>
 </header>
 <figure id="calls" aria-labelledby="calls-title">
 <div class="call-controller"><strong>task-delivery</strong><span>전체 흐름 관리 · 현재 과제 선택 · 대기 · 실패 복귀 · 다음 과제 결정</span></div>
@@ -142,7 +142,7 @@ section{margin-top:var(--s-7)}
 <button type="button" data-step="3" aria-pressed="false" aria-controls="step-detail"><span class="step-number">04 →</span><strong>TDD 구현</strong><small>tdd</small></button>
 <button type="button" data-step="4" aria-pressed="false" aria-controls="step-detail"><span class="step-number">05 →</span><strong>지도 갱신·인계</strong><small>task-maps<br>→ task-evidence</small></button>
 <button type="button" data-step="5" aria-pressed="false" aria-controls="step-detail"><span class="step-number">06 →</span><strong>공동 E2E</strong><small>task-evidence<br>+ 프로젝트 실행 도구</small></button>
-<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 →</span><strong>자기 설명·복습</strong><small>task-evidence<br>learning-review</small></button>
+<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 →</span><strong>자기 설명·복습</strong><small>task-evidence<br>learning-review · review</small></button>
 <button type="button" data-step="7" aria-pressed="false" aria-controls="step-detail"><span class="step-number">08 ↺</span><strong>다음 작업 결정</strong><small>task-delivery</small></button>
 </div>
 </div>
@@ -244,7 +244,7 @@ section{margin-top:var(--s-7)}
 </figure>
 </div>
 <div class="package"><div><strong>plan.md · 결정의 원본</strong><small>기술적 질문 · 선택·이유 · 대안·조건 · 사용자 판단</small></div><div class="shared"><strong>objects.mmd · 결정의 위치</strong><small>예시 D01 → A3 저장소의 책임과 경계</small></div><div><strong>maps/view.html · 읽을 화면</strong><small>중요 결정 전체의 상태·대안·한계·검증을 찾는다.</small></div></div>
-<p class="note">구현 중에는 현재 기능의 결정을 첫 화면에, 나머지는 결정 색인에 표시한다. 결정 설명만 바뀌면 구조 지도 버전은 유지한다.</p>
+<p class="note">구현 중에는 현재 기능의 결정을 지도 첫 화면에 표시한다. <a href="../skills/task-evidence/assets/review.md">review.md 양식 ↗</a>은 완료한 기능·결정·검증·다시 설명할 질문을 한 문서로 누적한다. 결정 설명만 바뀌면 구조 지도 버전은 유지한다.</p>
 </section>
 <section id="composition" aria-labelledby="composition-title">
 <div class="sec-head"><p class="ve-label">COMPOSABLE SKILLS</p><h2 id="composition-title">상위 스킬은 흐름을, 도구 스킬은 결과를 맡는다.</h2></div>
@@ -279,8 +279,9 @@ section{margin-top:var(--s-7)}
 </svg></div>
 <figcaption><span class="fig-n">Fig. 6</span> <strong>설계 기준, 지도 원본, 사람에게 보여줄 표현을 연결한다.</strong> 코드가 바뀌면 에이전트가 지도를 갱신한다.</figcaption>
 </figure>
-<details class="detail-docs"><summary>실제로 사용할 파일과 시작 문장</summary><p>설치한 프로젝트에서는 AGENTS.snippet.md의 연결 문구로 위 스킬을 사용할 수 있다. “이 과제 MD를 3시간 해커톤 모드로 함께 결정하고, 전체 구현 MD와 현재 작업·지도부터 보여줘”라고 시작하면 된다.</p><pre>.workflow/과제명/
+<details class="detail-docs"><summary>실제로 사용할 파일과 시작 문장</summary><p>설치한 프로젝트에서는 AGENTS.snippet.md의 연결 문구로 위 스킬을 사용할 수 있다. “이 과제 MD를 3시간 해커톤 모드로 함께 결정하고, 전체 구현 MD와 현재 작업·지도·누적 복습부터 보여줘”라고 시작하면 된다.</p><pre>.workflow/과제명/
   plan.md                 전체 구현 방향 · 결정 이유 · 순서 · 복습 색인
+  review.md               누적 복습 · 인터뷰 질문 · 실제 설명 상태
   tasks/T01.md            현재 기능 · 동작 · 검증 · 자기 설명
   maps/                   객체 원본 · 흐름 원본 · HTML
   evidence/T01/           구현 인계 · 공동 E2E · 실행 근거</pre><p><a href="../skills/task-delivery/assets/plan.md">전체 구현 양식</a> · <a href="../skills/task-delivery/assets/task.md">서브 과제 양식</a> · <a href="../skills/contracts/task-workflow-v1.md">공유 계약과 상태 전이</a></p><p class="note">코딩 에이전트가 읽고 실행하는 절차형 스킬이다. 현재 세션의 전역 명령 등록이나 별도 실행 서버는 만들지 않았다.</p></details>
@@ -303,7 +304,7 @@ section{margin-top:var(--s-7)}
 </svg>
 <p class="route-copy" id="learning-copy" aria-live="polite">아직 설명이 없으면 <strong>pending</strong>으로 기다린다. 기능 검증 완료를 네 이해의 증거로 바꾸지 않는다.</p>
 </div>
-<figcaption><span class="fig-n">Fig. 7</span> <strong>기능의 verified와 이해 상태를 따로 기록한다.</strong> 막힌 부분은 복습 표시를 남기고 다음 기능으로 갈 수 있다.</figcaption>
+<figcaption><span class="fig-n">Fig. 7</span> <strong>기능의 verified와 이해 상태를 따로 기록한다.</strong> 막힌 부분은 review.md에도 연결해 개발 후 인터뷰 연습에 쓴다.</figcaption>
 </figure>
 <figure class="subfigure">
 <h3>문서·검증·설명도 180분 안에 포함한다.</h3>
@@ -430,7 +431,7 @@ const steps=[
       "변경 코드",
       "Red · Green · 회귀 실행 근거"
     ],
-    "human": "현재 기능의 지도를 읽으며 구현 맥락을 따라간다. 중요한 설계 변경은 함께 정한다.",
+    "human": "현재 기능의 지도와 누적 복습 문서를 읽는다. 중요한 설계 변경은 함께 정한다.",
     "caution": "한 기능만 구현한다. 다른 수행자는 같은 기능의 E2E를 준비할 수 있다. 실행 환경 오류와 기능 실패를 구분한다.",
     "source": "../skills/contracts/components.md"
   },
@@ -445,7 +446,7 @@ const steps=[
     ],
     "output": [
       "갱신 지도 · 실제 선택 근거",
-      "E2E 시나리오 · 미검증 범위"
+      "review.md · E2E 준비 상태"
     ],
     "human": "계획과 실제 코드의 차이, 함께 실행할 E2E 경로를 한 화면에서 확인한다.",
     "caution": "인계 때 실제 코드·Red/Green 근거를 연결한다. 구조·결정이 달라졌다면 변경 사실과 이유를 드러낸다.",
@@ -471,7 +472,7 @@ const steps=[
   {
     "title": "자기 설명·복습 기록",
     "skill": "task-evidence",
-    "mode": "learning-review · 실제 설명 대조",
+    "mode": "learning-review → review",
     "kind": "도구층 · 이해 기록 반환",
     "input": [
       "현재 코드 · 지도 · 결정 이유",
@@ -479,7 +480,7 @@ const steps=[
     ],
     "output": [
       "설명 상태 · 확인한 부분",
-      "막힌 노드 · 다시 볼 질문"
+      "review.md · 다시 볼 질문"
     ],
     "human": "60~90초 정도 입력부터 결과까지의 흐름과 핵심 선택 이유를 네 말로 설명한다.",
     "caution": "막힘은 revisit으로 남기고 진행할 수 있다. 명시적 보류는 deferred, 미응답은 pending이다.",

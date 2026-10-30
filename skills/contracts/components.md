@@ -12,6 +12,7 @@
 | 구현 · tdd | task-delivery | 합의한 TaskPacket·MapSet → 변경 코드, 실제 Red/Green·회귀 근거 | 환경 오류/기능 실패/범위 변경을 구분해 반환 |
 | 근거 · task-evidence | task-delivery, 단독 인계/E2E 검토 | 현재 패키지·실행 기록 → handoff 또는 joint-e2e Evidence | 누락은 blocked/needs_work, 관찰 실패는 fail |
 | 자기 설명 기록 · task-evidence learning-review | 학습 모드의 task-delivery, 단독 설명 검토 | 현재 패키지·사용자 설명 → 과제의 LearningNote·복습 색인 | 설명 부재/버전 미확인은 pending, 남은 막힘은 revisit |
+| 누적 복습 문서 · task-evidence review | 학습 모드의 task-delivery, 단독 복습·인터뷰 준비 | 계획·모든 작업·지도·코드·검증·설명 → `review.md` 파생 요약 | 출처·현재 코드 불일치는 표시하고 해당 완료 주장을 보류 |
 | 책임 설계 · codebase-design | task-maps, tdd의 경계 설계 | 코드·도메인 용어 → 책임/공개 인터페이스 판단 | 결정이 필요한 경계를 표시 |
 | 원본 지도 · mermaid-diagrams | task-maps | 노드·관계 → 객체/흐름 .mmd | 문법·누락 관계 수정 |
 | 사람이 보는 지도 · visual-explainer | task-maps | 같은 노드·관계·버전 → 검증한 HTML | 렌더 검사 실패 수정, 미확인 범위 표시 |
@@ -22,6 +23,8 @@
 티켓 분해와 함께 찾은 기술적 선택은 `plan.md`의 PlanNote에 결정 ID로 둔다. `task-delivery`가 요구·코드의 사실과 작업 순서의 초안을 먼저 만들고 `task-design-dialogue`로 중요한 선택을 사용자와 왕복한다. 현재 작업 MD는 요구·결정·반영된 가정 ID를 참조한다. `task-maps`는 결정 ID를 관련 책임 노드와 HTML 요약에 연결하고 현재 작업의 미확인 가정도 표시한다. `task-evidence`는 구현된 선택과 근거가 계획·지도와 맞는지 확인한다. 도구층은 같은 계획·작업을 입력으로 받는다.
 
 해커톤·시험 대비에서는 `task-delivery`가 기능 검증 뒤 짧은 설명을 요청하고 `learning-review`에 실제 응답을 전달한다. `task-maps`는 같은 과제의 이해 기록과 관련 노드를 연결한다. LearningNote는 v1의 선택 확장이며 기존 Evidence·verified 의미는 유지한다.
+
+`task-evidence review`는 위 원본의 누적 읽기 화면을 만든다. 최초 계획 뒤, 현재 기능의 인계·공동 E2E·설명 뒤 바뀐 부분만 갱신한다. 사용자는 이 문서와 HTML 지도로 현재까지의 선택·검증·다음 대화 지점을 보고, 에이전트는 원본 링크를 따라 현재 코드와 대조한다. ReviewBrief는 상태의 정본이나 추가 승인 관문이 아니다.
 
 ## to-tickets 어댑터
 

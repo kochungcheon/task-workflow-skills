@@ -15,6 +15,7 @@ workflow_mode: standard 또는 hackathon-exam
 - 제한 시간 / 실제 시작 / 마감 / 시간대: 미확인
 - 현재 작업:
 - 공유 화면: maps/view.html (생성 후 연결)
+- 누적 복습·인터뷰 브리프: review.md (해커톤/시험 대비에서 생성 후 연결)
 
 ## 원문 요구와 작업 연결
 
