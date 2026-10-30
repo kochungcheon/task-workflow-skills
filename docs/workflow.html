@@ -435,15 +435,15 @@ section{margin-top:var(--s-7)}
 </nav>
 <main>
 <header>
-<p class="eyebrow">HACKATHON · 3 HOURS · SKILLS v1.3 · 2026.10.30</p>
+<p class="eyebrow">HACKATHON · 3 HOURS · WORKFLOW · 2026.10.30</p>
 <h1>3시간 안에 구현하고, 네 말로 설명한다.</h1>
-<p class="lead"><strong>티켓·설계 초안을 놓고 질문과 반론으로 중요한 선택을 함께 정한다.</strong><br>결정 ID를 지도에 붙인 뒤 기능마다 TDD → 공동 E2E → 짧은 자기 설명을 거친다.</p>
+<p class="lead"><strong>독립 조사는 동시에 하고, 결과는 하나의 설계 초안에 합친다.</strong><br>현재 기능 하나를 구현하는 동안 너는 그 지도를 읽는다. 함께 E2E를 확인하고 설명한 뒤 다음 기능으로 간다.</p>
 </header>
 <figure id="calls" aria-labelledby="calls-title">
 <div class="call-controller"><strong>task-delivery</strong><span>전체 흐름 관리 · 현재 과제 선택 · 대기 · 실패 복귀 · 다음 과제 결정</span></div>
 <div class="step-scroll">
 <div class="step-rail" role="group" aria-label="단계별 스킬 설명 선택">
-<button type="button" data-step="0" aria-pressed="true" aria-controls="step-detail"><span class="step-number">01 →</span><strong>티켓·갈림길 식별</strong><small>task-delivery<br>+ to-tickets 기준</small></button>
+<button type="button" data-step="0" aria-pressed="true" aria-controls="step-detail"><span class="step-number">01 →</span><strong>조사 합치고 분해</strong><small>task-delivery<br>+ to-tickets 기준</small></button>
 <button type="button" data-step="1" aria-pressed="false" aria-controls="step-detail"><span class="step-number">02 →</span><strong>중요 선택 문답</strong><small>task-design-dialogue</small></button>
 <button type="button" data-step="2" aria-pressed="false" aria-controls="step-detail"><span class="step-number">03 →</span><strong>결정·두 지도 공유</strong><small>task-maps</small></button>
 <button type="button" data-step="3" aria-pressed="false" aria-controls="step-detail"><span class="step-number">04 →</span><strong>TDD 구현</strong><small>tdd</small></button>
@@ -454,17 +454,39 @@ section{margin-top:var(--s-7)}
 </div>
 </div>
 <div class="frame step-detail" id="step-detail" aria-live="polite">
-<div class="step-heading"><span id="step-index">01 / 08</span><h2 id="calls-title">티켓과 기술적 갈림길 식별</h2></div>
-<svg class="ve-svg" id="step-svg" viewBox="0 0 1160 220" role="img" aria-label="과제 원문과 기존 코드의 사실을 조사하고 작은 기능·기술 선택의 초안을 만든다." style="--ve-min: 995px">
+<div class="step-heading"><span id="step-index">01 / 08</span><h2 id="calls-title">독립 조사 합치고 티켓 분해</h2></div>
+<svg class="ve-svg" id="step-svg" viewBox="0 0 1160 220" role="img" aria-label="독립적인 요구·코드·환경 조사를 하나의 초안에 합치고 작은 기능과 기술 선택을 찾는다." style="--ve-min: 995px">
 <path class="ve-e" d="M300 116H410"/><text class="ve-el" x="355" y="102">입력</text>
 <path class="ve-e" d="M750 116H860"/><text class="ve-el" x="805" y="102">산출물</text>
 <g class="ve-n"><rect class="sh" x="30" y="55" width="270" height="130"/><text x="165" y="84">받는 맥락</text><text class="sub" id="step-in1" x="165" y="125">과제 원문 · 네 지시</text><text class="sub" id="step-in2" x="165" y="152">기존 코드 · 제약</text></g>
-<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">기능 분해 + 기술 선택지 찾기</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
+<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">독립 조사 합치기 → 분해</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
 <g class="ve-n"><rect class="sh" x="860" y="55" width="270" height="130"/><text x="995" y="84">돌려주는 결과</text><text class="sub" id="step-out1" x="995" y="125">작업 순서 · 의존관계</text><text class="sub" id="step-out2" x="995" y="152">plan.md · 설계 초안</text></g>
 </svg>
-<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.</span></p><p id="step-caution">스킬은 에이전트가 읽고 따르는 절차다. 이 페이지의 버튼은 호출 관계를 설명한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
+<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">합쳐진 한 초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.</span></p><p id="step-caution">독립적인 읽기 전용 조사만 동시에 진행한다. 충돌·누락을 대조하고 애매한 조사는 순차로 한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
 </div>
-<figcaption><span class="fig-n">Fig. 1</span> <strong>초안 → 사용자와 설계 문답 → 결정·지도 공유 → 구현.</strong> 3~8단계는 현재 기능마다 반복한다.</figcaption>
+<figcaption><span class="fig-n">Fig. 1</span> <strong>독립 조사 결과를 한 초안에 합친 뒤 설계 문답과 현재 기능 구현으로 간다.</strong> 3~8단계는 현재 기능마다 반복한다.</figcaption>
+</figure>
+<figure class="subfigure" id="parallel" aria-labelledby="parallel-title">
+<h3 id="parallel-title">동시 작업은 현재 맥락 하나로 모인다</h3>
+<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 310" role="img" aria-label="시작할 때 독립적인 요구 추출, 코드 탐색, 환경 확인을 함께 수행해 하나의 계획 초안에 합친다. 현재 기능에서는 에이전트가 TDD를 하는 동안 사용자가 그 기능의 지도를 읽고, 인계 때 합쳐 공동 E2E와 설명으로 간다." style="--ve-min: 995px">
+<rect class="ve-bnd" x="20" y="25" width="535" height="255" rx="4"/>
+<text class="ve-bnd-t" x="40" y="53">시작 · 독립 사실 조사</text>
+<path class="ve-e" d="M210 104H275V150H310"/><text class="ve-el" x="260" y="94">합친다</text>
+<path class="ve-e" d="M210 164H310"/>
+<path class="ve-e" d="M210 224H275V178H310"/>
+<g class="ve-n"><rect class="sh" x="40" y="80" width="170" height="48"/><text x="125" y="109">요구 추출</text></g>
+<g class="ve-n"><rect class="sh" x="40" y="140" width="170" height="48"/><text x="125" y="169">코드 탐색</text></g>
+<g class="ve-n"><rect class="sh" x="40" y="200" width="170" height="48"/><text x="125" y="229">환경 확인</text></g>
+<g class="ve-n"><rect class="sh" x="310" y="117" width="210" height="95"/><text x="415" y="151">한 계획 초안</text><text class="sub" x="415" y="185">결정·티켓 순서</text></g>
+<rect class="ve-bnd" x="580" y="25" width="560" height="255" rx="4"/>
+<text class="ve-bnd-t" x="600" y="53">현재 기능 · 한 구현 흐름</text>
+<path class="ve-e" d="M825 115H860V150H900"/><text class="ve-el" x="858" y="97">코드·검사</text>
+<path class="ve-e" d="M825 215H860V178H900"/><text class="ve-el" x="858" y="248">같은 맥락</text>
+<g class="ve-n"><rect class="sh" x="610" y="80" width="215" height="70"/><text x="717" y="105">에이전트 · TDD</text><text class="sub" x="717" y="131">현재 티켓 하나</text></g>
+<g class="ve-n human"><rect class="sh" x="610" y="180" width="215" height="70"/><text x="717" y="205">사용자 · 지도 읽기</text><text class="sub" x="717" y="231">현재 티켓 하나</text></g>
+<g class="ve-n is-key"><rect class="sh" x="900" y="117" width="210" height="95"/><text x="1005" y="151">인계·지도 대조</text><text class="sub" x="1005" y="185">공동 E2E → 설명</text></g>
+</svg></div>
+<figcaption><strong>준비 단계의 결과는 한 설계 초안으로, 구현 중의 코드와 이해는 한 기능의 인계로 모인다.</strong> 독립성이 애매한 조사는 순차로 진행한다.</figcaption>
 </figure>
 <figure id="workflow" data-route="handoff">
 <div class="change-controls" role="group" aria-label="워크플로우 분기 설명">
@@ -494,7 +516,7 @@ section{margin-top:var(--s-7)}
 <p class="route-copy" id="route-copy" aria-live="polite"><strong>구현 완료 · 공동 검증 대기.</strong> 에이전트가 변경 코드, 테스트 근거, 갱신된 지도를 인계한다. 너와 실제 입력부터 결과까지 확인한 뒤 짧은 자기 설명을 기록한다.</p>
 </div>
 <div class="readout"><span class="chip warn" id="route-state">awaiting_joint_e2e</span><p class="note">버튼은 흐름을 설명하는 예시이며 실제 과제 상태를 변경하지 않는다.</p></div>
-<figcaption><span class="fig-n">Fig. 2</span> <strong>공동 검증 뒤 자기 설명을 기록한다. 기능 통과와 이해 상태는 따로 남긴다.</strong></figcaption>
+<figcaption><span class="fig-n">Fig. 2</span> <strong>구현 중에는 현재 지도를 읽고, 공동 검증 뒤 자기 설명을 기록한다.</strong> 기능 통과와 이해 상태는 따로 남긴다.</figcaption>
 </figure>
 <section id="maps" aria-labelledby="maps-title">
 <div class="sec-head"><p class="ve-label">SHARED CONTEXT</p><h2 id="maps-title">너와 에이전트가 같은 두 지도를 본다.</h2><p class="note">예시 기능: 항목을 저장하고 다시 조회한다 · 아래는 계획 구조의 설명이며 실제 과제 구현 결과가 아니다.</p></div>
@@ -652,9 +674,9 @@ section{margin-top:var(--s-7)}
 <script>
 const steps=[
   {
-    "title": "티켓과 기술적 갈림길 식별",
+    "title": "독립 조사 합치고 티켓 분해",
     "skill": "task-delivery",
-    "mode": "기능 분해 + 기술 선택지 찾기",
+    "mode": "독립 조사 합치기 → 분해",
     "kind": "자동화층 · 대화와 흐름 관리",
     "input": [
       "과제 원문 · 네 지시",
@@ -664,8 +686,8 @@ const steps=[
       "작업 순서 · 의존관계",
       "plan.md · 설계 초안"
     ],
-    "human": "초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.",
-    "caution": "에이전트가 원문·코드에서 확인 가능한 사실을 조사하고, 현재 작업에 중요한 선택을 초안으로 보여준다.",
+    "human": "합쳐진 한 초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.",
+    "caution": "독립적인 읽기 전용 조사만 동시에 진행한다. 결과의 충돌·누락을 대조하고, 애매한 조사는 순차로 한다.",
     "source": "../skills/task-delivery/assets/plan.md"
   },
   {
@@ -698,8 +720,8 @@ const steps=[
       "두 지도 · maps/view.html",
       "결정 ID ↔ 객체 노드 ↔ 근거"
     ],
-    "human": "에이전트가 구현하는 동안 HTML에서 현재 위치·선택 이유·대안을 읽는다.",
-    "caution": "현재 기능의 결정을 첫 화면에 보여주고, 다른 중요한 결정은 같은 HTML에서 찾게 한다.",
+    "human": "에이전트가 구현하는 동안 HTML에서 현재 기능의 예정 경로·선택 이유를 읽는다.",
+    "caution": "계획 경로를 계획으로 표시하고, 구조·결정이 바뀌면 갱신 사실을 알린다.",
     "source": "../skills/task-maps/SKILL.md"
   },
   {
@@ -715,8 +737,8 @@ const steps=[
       "변경 코드",
       "Red · Green · 회귀 실행 근거"
     ],
-    "human": "구현은 에이전트가 맡고, 중요한 요구나 설계 선택의 변경은 함께 정한다.",
-    "caution": "기대값은 원문 요구에서 도출한다. 실행 환경 오류와 기능의 실패를 구분한다.",
+    "human": "현재 기능의 지도를 읽으며 구현 맥락을 따라간다. 중요한 설계 변경은 함께 정한다.",
+    "caution": "한 기능만 구현한다. 다른 수행자는 같은 기능의 E2E를 준비할 수 있다. 실행 환경 오류와 기능 실패를 구분한다.",
     "source": "../skills/contracts/components.md"
   },
   {
@@ -732,8 +754,8 @@ const steps=[
       "갱신 지도 · 실제 선택 근거",
       "E2E 시나리오 · 미검증 범위"
     ],
-    "human": "무엇이 바뀌었는지와 함께 실행할 E2E 경로를 한 화면에서 확인한다.",
-    "caution": "코드가 초기 선택과 달라졌다면 결정 기록도 정정한다. 구조가 같으면 지도 버전을 유지할 수 있다.",
+    "human": "계획과 실제 코드의 차이, 함께 실행할 E2E 경로를 한 화면에서 확인한다.",
+    "caution": "인계 때 실제 코드·Red/Green 근거를 연결한다. 구조·결정이 달라졌다면 변경 사실과 이유를 드러낸다.",
     "source": "../skills/task-evidence/SKILL.md"
   },
   {
