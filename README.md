@@ -1,6 +1,6 @@
 # Task Workflow Skills
 
-작은 기능 하나를 **공유 지도 → TDD → 구현 인계 → 사용자와 공동 E2E**까지 확인하고 다음 기능으로 진행하는 에이전트 스킬 묶음입니다.
+과제 MD를 **핵심 결정 대화 → 전체 구현 MD → 작은 작업 MD → 공유 지도 → TDD → 공동 E2E**로 진행하는 에이전트 스킬 묶음입니다. 3시간 해커톤·시험 대비에서는 기능별 짧은 자기 설명과 복습 기록을 연결합니다.
 
 `task-delivery`가 진행을 관리하고 `task-maps`와 `task-evidence`가 산출물을 만듭니다. 에이전트가 읽고 수행하는 절차이며, 별도 서버나 자동 실행 엔진은 없습니다.
 
@@ -8,9 +8,9 @@
 
 | 구분 | 스킬 | 역할 |
 |---|---|---|
-| 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 분해·현재 과제·인계 후 대기·공동 검증·다음 과제 |
+| 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 핵심 결정·전체 계획·분해·현재 과제·검증/설명 후 다음 과제 |
 | 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체 지도와 프로젝트 흐름 지도 생성·갱신 |
-| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | handoff와 joint-e2e 근거·판정 |
+| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | handoff·joint-e2e 근거, learning-review 이해 기록 |
 | 공개 기능 | to-tickets · tdd · codebase-design | 작은 기능 분해 기준·TDD·책임과 경계 설계 |
 | 공개 기능 | mermaid-diagrams · visual-explainer | 지도 원본과 사용자용 HTML |
 
@@ -46,11 +46,21 @@ node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.sr
 
 ## 시작 문장
 
-> 이 과제를 task-delivery 워크플로우로 분해해줘. 첫 서브 과제의 인수 기준, 객체 지도, 프로젝트 흐름 지도, TDD 검증 지점부터 보여줘. 구현 뒤에는 근거를 인계하고 공동 E2E를 함께 확인하자.
+> 이 과제 MD를 3시간 해커톤용 task-delivery로 진행하자. 핵심 결정은 함께 이야기하고 plan.md에 전체 구현 방향과 이유를 정리해줘. 작게 나눠 현재 작업 MD와 두 지도부터 보여줘. TDD와 공동 E2E 뒤 내가 짧게 설명하고 다음 기능으로 가자.
 
 기본 수행자는 현재 에이전트입니다. 별도 에이전트 위임은 요청했을 때 사용합니다. 이미 합의한 범위·검증 지점은 재사용합니다.
 
 `awaiting_joint_e2e`는 **구현 완료·공동 검증 대기**입니다. 현재 코드의 필수 E2E 통과와 사용자 결과 확인이 있어야 `verified`가 됩니다. 실패하면 같은 과제를 수정합니다.
+
+## 3시간 동안 읽을 문서와 설명
+
+- `plan.md`: 전체 구현 방향·요구 연결·결정과 이유·남은 가정·작업 순서·복습 색인.
+- `tasks/T01.md`: 현재 기능의 범위·동작 경로·실패 조건·검증 근거·실제 사용자 설명. 공통 결정은 계획의 ID로 참조합니다.
+- `maps/view.html`: 사용자가 계속 읽는 한 화면. 전체 흐름의 현재 위치와 해당 기능의 다섯 항목·복습 표시를 연결합니다.
+
+문서 갱신은 에이전트가 맡습니다. 전체 순서부터 잡고 현재 기능을 상세화합니다. 15분 분석/결정/분해, 145분 기능 반복, 20분 전체 실행/제출 점검은 환경·문서 작성도 포함하는 조정 가능한 운영안입니다.
+
+공동 E2E 뒤 60~90초 정도 동작 흐름과 선택 이유를 사용자 말로 확인합니다. `verified`와 `learning_status`는 별개입니다. 막힘은 `revisit`으로 남기고 진행할 수 있으며, 명시적 보류는 `deferred`, 미응답은 `pending`입니다. 정확한 대기·재개 조건은 [해커톤 절차](skills/task-delivery/references/hackathon.md)를 따릅니다. 일반 개발 모드는 자기 설명 단계를 요구하지 않습니다.
 
 ## 경로와 버전 관리
 
@@ -63,10 +73,10 @@ node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.sr
 
 - [설계 이유](docs/workflow-design.md) · [HTML 설명 원본](docs/workflow.src.html) · [완성 HTML 다운로드](https://raw.githubusercontent.com/kochungcheon/task-workflow-skills/main/docs/workflow.html)
 - [확인한 범위와 결과](docs/validation.md)
-- [공유 계약](skills/contracts/task-workflow-v1.md) · [호출 관계와 공식 원문](skills/contracts/components.md) · [과제 양식](skills/task-delivery/assets/task.md)
+- [공유 계약](skills/contracts/task-workflow-v1.md) · [호출 관계와 공식 원문](skills/contracts/components.md) · [전체 구현 양식](skills/task-delivery/assets/plan.md) · [과제 양식](skills/task-delivery/assets/task.md)
 - `python3 scripts/check.py`: 원문 해시·필수 자원·내부 링크·개인 절대 경로 점검
 - `python3 -m unittest discover -s tests -v`: 설치·경로 이동·재실행·충돌 보존 검사
 
-전체 실제 과제 한 회차의 행동 검증은 아직 수행하지 않았습니다. 사후 자기 설명 연습은 별도 설계이며, 6문항을 자동 출제하거나 프롬프트를 자동 채점하는 스킬은 이 묶음에 포함되지 않습니다.
+전체 실제 과제 한 회차와 3시간 운영의 행동 검증은 아직 수행하지 않았습니다. 기능별 자기 설명은 연결했으며, 전체 작업 후 별도 6문항 연습의 자동 출제나 프롬프트 자동 채점은 포함하지 않습니다.
 
 작성한 스킬·설치 도구는 [MIT](LICENSE), 공개 스킬은 각각 동봉된 원저자의 MIT 라이선스를 따릅니다.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>우리 워크플로우 · 단계별 스킬 호출 지도</title>
+<title>3시간 해커톤 · 구현과 자기 설명 워크플로우</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M18 40V24l14-8 14 8v16l-14 8-14-8Z' fill='none' stroke='%23fbbf24' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%2338bdf8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -373,8 +373,8 @@ h1{max-width:none;font-size:clamp(28px,3.3vw,40px)}
 header .lead{margin-bottom:var(--s-3)}
 section{margin-top:var(--s-7)}
 .route-copy{border-top:1px solid var(--border);padding:var(--s-4);margin:0;line-height:1.8;min-height:5.4em;font-size:var(--t-body)}
-#workflow[data-route="handoff"] .handoff-node .sh,#workflow[data-route="pass"] .next-node .sh,#workflow[data-route="fail"] .tdd-node .sh{stroke:var(--accent);stroke-width:2.5;fill:var(--accent-dim)}
-#workflow[data-route="pass"] .path-pass,#workflow[data-route="fail"] .path-fail{stroke:var(--accent);stroke-width:3}
+#workflow[data-route="handoff"] .handoff-node .sh,#workflow[data-route="pass"] .next-node .sh,#workflow[data-route="learning"] .next-node .sh,#workflow[data-route="fail"] .tdd-node .sh{stroke:var(--accent);stroke-width:2.5;fill:var(--accent-dim)}
+#workflow[data-route="pass"] .path-pass,#workflow[data-route="learning"] .path-pass,#workflow[data-route="fail"] .path-fail{stroke:var(--accent);stroke-width:3}
 .readout{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-top:var(--s-3);flex-wrap:wrap}
 .readout .note{margin:0}
 .map-pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5)}
@@ -395,7 +395,7 @@ section{margin-top:var(--s-7)}
 .call-controller{display:flex;align-items:baseline;gap:var(--s-3);flex-wrap:wrap;border-bottom:1px solid var(--border);padding:var(--s-3) 0;font-size:var(--t-small);color:var(--text-dim)}
 .call-controller strong{color:var(--text);font-family:"IBM Plex Mono",monospace}
 .step-scroll{overflow-x:auto;padding:var(--s-3) 0 var(--s-2)}
-.step-rail{display:grid;grid-template-columns:repeat(7,minmax(138px,1fr));gap:var(--s-2)}
+.step-rail{display:grid;grid-template-columns:repeat(8,minmax(138px,1fr));gap:var(--s-2)}
 .step-rail button{appearance:none;text-align:left;font:inherit;color:var(--text);border:1px solid var(--border);background:var(--surface);border-radius:var(--r-1);padding:var(--s-3);cursor:pointer;min-height:113px;display:flex;flex-direction:column;gap:var(--s-2)}
 .step-rail button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-dim)}
 .step-rail button:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
@@ -430,49 +430,51 @@ section{margin-top:var(--s-7)}
 <a href="#workflow">한 과제의 반복</a>
 <a href="#maps">공유하는 두 지도</a>
 <a href="#composition">스킬 조합</a>
-<a href="#practice">사후 6문항</a>
+<a href="#practice">설명·시간 배분</a>
 <a href="#changes">변경 영향</a>
 </nav>
 <main>
 <header>
-<p class="eyebrow">OUR WORKFLOW · SKILL CALL MAP · 2026.10.30</p>
-<h1>어느 단계에서 어떤 스킬을 쓸까?</h1>
-<p class="lead"><strong>task-delivery가 순서를 잡고, 단계마다 필요한 스킬을 조합한다.</strong><br>작은 과제 하나를 지도 → TDD → 인계 → 공동 E2E까지 끝내고 다음으로 간다.</p>
+<p class="eyebrow">HACKATHON · 3 HOURS · SKILLS v1.2 · 2026.10.30</p>
+<h1>3시간 안에 구현하고, 네 말로 설명한다.</h1>
+<p class="lead"><strong>핵심 결정을 함께 정하고, 전체 구현 MD에서 작은 작업 MD로 연결한다.</strong><br>기능마다 지도 → TDD → 공동 E2E → 짧은 자기 설명을 거쳐 다음으로 간다.</p>
 </header>
 <figure id="calls" aria-labelledby="calls-title">
 <div class="call-controller"><strong>task-delivery</strong><span>전체 흐름 관리 · 현재 과제 선택 · 대기 · 실패 복귀 · 다음 과제 결정</span></div>
 <div class="step-scroll">
 <div class="step-rail" role="group" aria-label="단계별 스킬 설명 선택">
-<button type="button" data-step="0" aria-pressed="true" aria-controls="step-detail"><span class="step-number">01 →</span><strong>과제·지시 파악</strong><small>task-delivery</small></button>
+<button type="button" data-step="0" aria-pressed="true" aria-controls="step-detail"><span class="step-number">01 →</span><strong>핵심 결정·전체 MD</strong><small>task-delivery</small></button>
 <button type="button" data-step="1" aria-pressed="false" aria-controls="step-detail"><span class="step-number">02 →</span><strong>작은 기능 분해</strong><small>to-tickets 기준 참고</small></button>
 <button type="button" data-step="2" aria-pressed="false" aria-controls="step-detail"><span class="step-number">03 →</span><strong>두 지도 공유</strong><small>task-maps</small></button>
 <button type="button" data-step="3" aria-pressed="false" aria-controls="step-detail"><span class="step-number">04 →</span><strong>TDD 구현</strong><small>tdd</small></button>
 <button type="button" data-step="4" aria-pressed="false" aria-controls="step-detail"><span class="step-number">05 →</span><strong>지도 갱신·인계</strong><small>task-maps<br>→ task-evidence</small></button>
 <button type="button" data-step="5" aria-pressed="false" aria-controls="step-detail"><span class="step-number">06 →</span><strong>공동 E2E</strong><small>task-evidence<br>+ 프로젝트 실행 도구</small></button>
-<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 ↺</span><strong>다음 작업 결정</strong><small>task-delivery</small></button>
+<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 →</span><strong>자기 설명·복습</strong><small>task-evidence<br>learning-review</small></button>
+<button type="button" data-step="7" aria-pressed="false" aria-controls="step-detail"><span class="step-number">08 ↺</span><strong>다음 작업 결정</strong><small>task-delivery</small></button>
 </div>
 </div>
 <div class="frame step-detail" id="step-detail" aria-live="polite">
-<div class="step-heading"><span id="step-index">01 / 07</span><h2 id="calls-title">과제·지시 파악</h2></div>
+<div class="step-heading"><span id="step-index">01 / 08</span><h2 id="calls-title">핵심 결정·전체 구현 MD</h2></div>
 <svg class="ve-svg" id="step-svg" viewBox="0 0 1160 220" role="img" aria-label="과제 원문과 사용자 지시를 task-delivery가 읽어 목표와 완료 기준을 정리한다." style="--ve-min: 995px">
 <path class="ve-e" d="M300 116H410"/><text class="ve-el" x="355" y="102">입력</text>
 <path class="ve-e" d="M750 116H860"/><text class="ve-el" x="805" y="102">산출물</text>
 <g class="ve-n"><rect class="sh" x="30" y="55" width="270" height="130"/><text x="165" y="84">받는 맥락</text><text class="sub" id="step-in1" x="165" y="125">과제 원문 · 네 지시</text><text class="sub" id="step-in2" x="165" y="152">기존 코드 · 제약</text></g>
-<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">입력과 완료 기준 정리</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
-<g class="ve-n"><rect class="sh" x="860" y="55" width="270" height="130"/><text x="995" y="84">돌려주는 결과</text><text class="sub" id="step-out1" x="995" y="125">목표 · 완료 기준</text><text class="sub" id="step-out2" x="995" y="152">미확인 조건 · 작업 범위</text></g>
+<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">초안을 보며 선택과 이유를 정리</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
+<g class="ve-n"><rect class="sh" x="860" y="55" width="270" height="130"/><text x="995" y="84">돌려주는 결과</text><text class="sub" id="step-out1" x="995" y="125">plan.md · 전체 구현 방향</text><text class="sub" id="step-out2" x="995" y="152">결정 이유 · 요구 · 남은 가정</text></g>
 </svg>
-<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">원하는 결과와 제약을 전달하고, 완료 기준이 맞는지 확인한다.</span></p><p id="step-caution">스킬은 에이전트가 읽고 따르는 절차다. 이 페이지의 버튼은 호출 관계를 설명한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
+<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">과제·코드를 읽은 초안에서 중요한 선택의 추천과 이유를 보고 함께 결정한다.</span></p><p id="step-caution">스킬은 에이전트가 읽고 따르는 절차다. 이 페이지의 버튼은 호출 관계를 설명한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
 </div>
-<figcaption><span class="fig-n">Fig. 1</span> <strong>위의 7단계를 하나씩 누르면 입력 → 사용하는 스킬 → 산출물을 볼 수 있다.</strong> 3~7단계는 현재 서브 과제마다 반복한다.</figcaption>
+<figcaption><span class="fig-n">Fig. 1</span> <strong>위의 8단계를 하나씩 누르면 입력 → 사용하는 스킬 → 산출물을 볼 수 있다.</strong> 3~8단계는 현재 기능마다 반복한다. 문서 작성·갱신은 에이전트가 맡는다.</figcaption>
 </figure>
 <figure id="workflow" data-route="handoff">
 <div class="change-controls" role="group" aria-label="워크플로우 분기 설명">
 <button type="button" data-route="handoff" aria-pressed="true">구현 보고 도착</button>
 <button type="button" data-route="pass" aria-pressed="false">공동 E2E 통과</button>
 <button type="button" data-route="fail" aria-pressed="false">공동 E2E 실패</button>
+<button type="button" data-route="learning" aria-pressed="false">설명 기록 후</button>
 </div>
 <div class="frame">
-<svg class="ve-svg" viewBox="0 0 1160 340" role="img" aria-label="과제를 작은 기능으로 나눈다. 현재 과제의 두 지도를 공유하고 TDD 구현 후 결과를 인계한다. 공동 E2E 실패 시 같은 과제를 수정하고, 통과와 사용자 확인 후 다음 과제의 지도로 돌아간다." style="--ve-min: 995px">
+<svg class="ve-svg" viewBox="0 0 1160 340" role="img" aria-label="과제를 작은 기능으로 나눈다. 현재 과제의 두 지도를 공유하고 TDD 구현 후 결과를 인계한다. 공동 E2E 실패 시 같은 과제를 수정하고, 통과와 사용자 확인 후 자기 설명을 기록하고 다음 과제의 지도로 돌아간다." style="--ve-min: 995px">
 <rect class="ve-bnd" x="212" y="32" width="736" height="174" rx="4"/>
 <text class="ve-bnd-t" x="230" y="57">현재 서브 과제 T01 · 한 번에 하나</text>
 <path class="ve-e" d="M175 130H235"/><text class="ve-el" x="205" y="110">고른다</text>
@@ -481,18 +483,18 @@ section{margin-top:var(--s-7)}
 <path class="ve-e" d="M775 130H815"/><text class="ve-el" x="795" y="77">함께 실행</text>
 <path class="ve-e path-pass" d="M935 130H1005"/><text class="ve-el" x="970" y="94">통과·확인</text>
 <path class="ve-e path-fail" d="M875 170V250H505V170"/><text class="ve-el" x="685" y="238">실패하면 같은 과제를 수정·재검증한다</text>
-<path class="ve-e is-async path-pass" d="M1075 170V310H305V170"/><text class="ve-el" x="684" y="298">완료를 지도에 반영하고 다음 과제의 맥락을 공유한다</text>
+<path class="ve-e is-async path-pass" d="M1075 170V310H305V170"/><text class="ve-el" x="684" y="298">설명·복습 또는 명시적 보류를 남기고 다음 과제의 지도로 돌아간다</text>
 <g class="ve-n"><rect class="sh" x="35" y="90" width="140" height="80"/><text x="105" y="116">과제 분해</text><text class="sub" x="105" y="146">작은 완결 기능</text></g>
 <g class="ve-n human"><rect class="sh" x="235" y="90" width="140" height="80"/><text x="305" y="116">지도 공유</text><text class="sub" x="305" y="146">범위·검증 합의</text></g>
 <g class="ve-n tdd-node"><rect class="sh" x="435" y="90" width="140" height="80"/><text x="505" y="116">TDD 구현</text><text class="sub" x="505" y="146">실패 → 통과</text></g>
 <g class="ve-n handoff-node"><rect class="sh" x="635" y="90" width="140" height="80"/><text x="705" y="116">결과 인계</text><text class="sub" x="705" y="146">공동 검증 대기</text></g>
 <g class="ve-n human"><path class="sh" d="M831 90H919L935 106V154L919 170H831L815 154V106Z"/><text x="875" y="116">공동 E2E</text><text class="sub" x="875" y="146">너 + 에이전트</text></g>
-<g class="ve-n next-node"><rect class="sh" x="1005" y="90" width="140" height="80"/><text x="1075" y="116">다음 과제</text><text class="sub" x="1075" y="146">T02 준비</text></g>
+<g class="ve-n next-node"><rect class="sh" x="1005" y="90" width="140" height="80"/><text x="1075" y="116">자기 설명</text><text class="sub" x="1075" y="146">60~90초 · 복습</text></g>
 </svg>
-<p class="route-copy" id="route-copy" aria-live="polite"><strong>구현 완료 · 공동 검증 대기.</strong> 에이전트가 변경 코드, 테스트 근거, 갱신된 지도를 인계한다. 너와 실제 입력부터 결과까지 확인한 뒤 다음 과제로 간다.</p>
+<p class="route-copy" id="route-copy" aria-live="polite"><strong>구현 완료 · 공동 검증 대기.</strong> 에이전트가 변경 코드, 테스트 근거, 갱신된 지도를 인계한다. 너와 실제 입력부터 결과까지 확인한 뒤 짧은 자기 설명을 기록한다.</p>
 </div>
 <div class="readout"><span class="chip warn" id="route-state">awaiting_joint_e2e</span><p class="note">버튼은 흐름을 설명하는 예시이며 실제 과제 상태를 변경하지 않는다.</p></div>
-<figcaption><span class="fig-n">Fig. 2</span> <strong>에이전트의 구현 보고 뒤에 공동 검증을 두고, 그 결과로 다음 경로를 정한다.</strong></figcaption>
+<figcaption><span class="fig-n">Fig. 2</span> <strong>공동 검증 뒤 자기 설명을 기록한다. 기능 통과와 이해 상태는 따로 남긴다.</strong></figcaption>
 </figure>
 <section id="maps" aria-labelledby="maps-title">
 <div class="sec-head"><p class="ve-label">SHARED CONTEXT</p><h2 id="maps-title">너와 에이전트가 같은 두 지도를 본다.</h2><p class="note">예시 기능: 항목을 저장하고 다시 조회한다 · 아래는 계획 구조의 설명이며 실제 과제 구현 결과가 아니다.</p></div>
@@ -526,7 +528,7 @@ section{margin-top:var(--s-7)}
 <figcaption><span class="fig-n">Fig. 4</span> <strong>플로우 지도는 실제 입력에서 결과까지 확인할 경로를 보여준다.</strong></figcaption>
 </figure>
 </div>
-<div class="package"><div><strong>너 · 전체 맥락 유지</strong><small>HTML에서 책임과 현재 위치를 읽는다.</small></div><div class="shared"><strong>같은 과제 ID · 같은 지도 버전</strong><small>인수 기준 + 두 지도 + 테스트 경계 + E2E 경로</small></div><div><strong>에이전트 · 현재 과제 구현</strong><small>같은 지도 원본과 코드 근거를 읽는다.</small></div></div>
+<div class="package"><div><strong>plan.md · 전체 구현 MD</strong><small>목표 · 요구 ID · 핵심 결정과 이유 · 작업 순서</small></div><div class="shared"><strong>tasks/T01.md · 작은 작업 MD</strong><small>요구·결정 참조 + 동작·실패·검증 + 이해 기록</small></div><div><strong>maps/view.html · 읽을 화면</strong><small>전체 위치와 현재 기능의 근거·복습 지점을 본다.</small></div></div>
 <p class="note">전체 지도에서 변경 부분을 갱신한다. HTML과 지도 원본은 에이전트가 함께 갱신하며, 자동 동기화 서비스는 아니다.</p>
 </section>
 <section id="composition" aria-labelledby="composition-title">
@@ -539,11 +541,11 @@ section{margin-top:var(--s-7)}
 <path class="ve-e" d="M395 128V274"/><text class="ve-el l" x="385" y="203">요청</text><path class="ve-e" d="M465 274V128"/><text class="ve-el r" x="475" y="203">반환</text>
 <path class="ve-e" d="M675 128V274"/><text class="ve-el l" x="665" y="203">요청</text><path class="ve-e" d="M745 274V128"/><text class="ve-el r" x="755" y="203">반환</text>
 <path class="ve-e" d="M955 128V274"/><text class="ve-el l" x="945" y="203">요청</text><path class="ve-e" d="M1025 274V128"/><text class="ve-el r" x="1035" y="203">반환</text>
-<g class="ve-n is-key"><rect class="sh" x="40" y="62" width="1080" height="66"/><text x="580" y="84">task-delivery · 현재 과제만 실행하고 공동 E2E 결과로 다음 단계를 정한다</text><text class="sub" x="580" y="110">이번에 개정 · task state의 관리 주체</text></g>
+<g class="ve-n is-key"><rect class="sh" x="40" y="62" width="1080" height="66"/><text x="580" y="84">task-delivery · 현재 기능의 검증·설명 기록을 확인하고 다음 단계를 정한다</text><text class="sub" x="580" y="110">v1.2 · 순서와 작업 상태의 관리 주체</text></g>
 <g class="ve-n"><rect class="sh" x="40" y="274" width="220" height="86"/><text x="150" y="299">to-tickets 기준</text><text class="sub" x="150" y="326">작은 기능 · 의존관계</text><text class="sub" x="150" y="347">공개 기준을 로컬에 적용</text></g>
-<g class="ve-n"><rect class="sh" x="320" y="274" width="220" height="86"/><text x="430" y="299">task-maps · 새 도구</text><text class="sub" x="430" y="326">책임 설계 + 원본 + HTML</text><text class="sub" x="430" y="347">두 지도와 변경 근거</text></g>
+<g class="ve-n"><rect class="sh" x="320" y="274" width="220" height="86"/><text x="430" y="299">task-maps</text><text class="sub" x="430" y="326">책임 설계 + 원본 + HTML</text><text class="sub" x="430" y="347">두 지도와 변경 근거</text></g>
 <g class="ve-n"><rect class="sh" x="600" y="274" width="220" height="86"/><text x="710" y="299">tdd · 기존 스킬</text><text class="sub" x="710" y="326">실제 실패 → 최소 구현</text><text class="sub" x="710" y="347">변경 코드와 통과 근거</text></g>
-<g class="ve-n"><rect class="sh" x="880" y="274" width="240" height="86"/><text x="1000" y="299">task-evidence · 새 도구</text><text class="sub" x="1000" y="326">구현 인계 / 공동 E2E 기록</text><text class="sub" x="1000" y="347">근거·판정·미검증 범위</text></g>
+<g class="ve-n"><rect class="sh" x="880" y="274" width="240" height="86"/><text x="1000" y="299">task-evidence</text><text class="sub" x="1000" y="326">인계 / E2E / 자기 설명 기록</text><text class="sub" x="1000" y="347">근거·판정·복습 지점</text></g>
 </svg></div>
 <figcaption><span class="fig-n">Fig. 5</span> <strong>공개 기능은 재사용하고, 지도 정합성과 공동 검증 인계는 우리 도구로 연결했다.</strong></figcaption>
 </figure>
@@ -562,25 +564,38 @@ section{margin-top:var(--s-7)}
 </svg></div>
 <figcaption><span class="fig-n">Fig. 6</span> <strong>설계 기준, 지도 원본, 사람에게 보여줄 표현을 연결한다.</strong> 코드가 바뀌면 에이전트가 지도를 갱신한다.</figcaption>
 </figure>
-<details class="detail-docs"><summary>실제로 사용할 파일과 시작 문장</summary><p>설치한 프로젝트에서는 AGENTS.snippet.md의 연결 문구로 위 스킬을 사용할 수 있다. “이 과제를 우리 워크플로우로 분해하고, 첫 서브 과제와 두 지도부터 보여줘”라고 시작하면 된다.</p><pre>.workflow/과제명/
-  plan.md                 전체 작업과 의존관계
-  tasks/T01.md            현재 과제 · 기준 · 상태
+<details class="detail-docs"><summary>실제로 사용할 파일과 시작 문장</summary><p>설치한 프로젝트에서는 AGENTS.snippet.md의 연결 문구로 위 스킬을 사용할 수 있다. “이 과제 MD를 3시간 해커톤 모드로 함께 결정하고, 전체 구현 MD와 현재 작업·지도부터 보여줘”라고 시작하면 된다.</p><pre>.workflow/과제명/
+  plan.md                 전체 구현 방향 · 결정 이유 · 순서 · 복습 색인
+  tasks/T01.md            현재 기능 · 동작 · 검증 · 자기 설명
   maps/                   객체 원본 · 흐름 원본 · HTML
-  evidence/T01/           구현 인계 · 공동 E2E · 실행 근거</pre><p><a href="../skills/task-delivery/assets/task.md">서브 과제 양식</a> · <a href="../skills/contracts/task-workflow-v1.md">공유 계약과 상태 전이</a></p><p class="note">코딩 에이전트가 읽고 실행하는 절차형 스킬이다. 현재 세션의 전역 명령 등록이나 별도 실행 서버는 만들지 않았다.</p></details>
+  evidence/T01/           구현 인계 · 공동 E2E · 실행 근거</pre><p><a href="../skills/task-delivery/assets/plan.md">전체 구현 양식</a> · <a href="../skills/task-delivery/assets/task.md">서브 과제 양식</a> · <a href="../skills/contracts/task-workflow-v1.md">공유 계약과 상태 전이</a></p><p class="note">코딩 에이전트가 읽고 실행하는 절차형 스킬이다. 현재 세션의 전역 명령 등록이나 별도 실행 서버는 만들지 않았다.</p></details>
 </section>
 <section id="practice" aria-labelledby="practice-title">
-<div class="sec-head"><p class="ve-label">AFTER THE WHOLE TASK</p><h2 id="practice-title">전체 작업 후, 내 설계를 6문항으로 설명한다.</h2><p class="note">별도 연습 요청 시 사용할 훈련 흐름이다. 현재 task-delivery의 자동 후속 호출에는 연결되어 있지 않다.</p></div>
-<figure>
-<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 240" role="img" aria-label="전체 작업의 코드, 지도, 판단과 검증 기록을 바탕으로 별도 연습을 요청한다. case-based-coaching을 활용해 실제 결과물에 관한 6문항에 직접 답하고 근거 중심 피드백을 받는다. 자동 호출은 미연결이다." style="--ve-min: 995px">
-<path class="ve-e is-async" d="M310 125H435"/><text class="ve-el" x="372" y="100">별도 연습 요청</text>
-<path class="ve-e" d="M765 125H890"/><text class="ve-el" x="827" y="100">답변 후 피드백</text>
-<g class="ve-n"><rect class="sh" x="30" y="65" width="280" height="125"/><text x="170" y="91">전체 작업의 근거</text><text class="sub" x="170" y="129">실제 코드 · 최종 지도</text><text class="sub" x="170" y="157">지시 · 판단 · 검증 기록</text></g>
-<g class="ve-n human"><rect class="sh" x="435" y="65" width="330" height="125"/><text x="600" y="91">case-based-coaching</text><text class="sub" x="600" y="129">요청 시 활용 가능한 기존 스킬</text><text class="sub" x="600" y="157">실제 결과물 기반 6문항 연습</text></g>
-<g class="ve-n"><rect class="sh" x="890" y="65" width="240" height="125"/><text x="1010" y="91">네 말로 설명</text><text class="sub" x="1010" y="129">설계 이유 · 동작 · 실패 조건</text><text class="sub" x="1010" y="157">수정·검증 근거 → 피드백</text></g>
-</svg></div>
-<figcaption><span class="fig-n">Fig. 7</span> <strong>작은 과제마다 6문항을 푸는 것이 아니라, 전체 작업 후 설명을 연습한다.</strong> 실제 출제 문제를 예측하는 단계는 아니다.</figcaption>
+<div class="sec-head"><p class="ve-label">EXPLAIN &amp; REMEMBER</p><h2 id="practice-title">기능마다 네 말로 설명하고, 막힌 곳만 남긴다.</h2><p class="note">동작 흐름과 핵심 선택 이유를 60~90초 정도 확인한다. 아래 버튼은 상태를 설명하는 예시다.</p></div>
+<figure id="learning" data-learning="pending">
+<div class="change-controls" role="group" aria-label="자기 설명 결과 예시">
+<button type="button" data-learning="pending" aria-pressed="true">아직 답하지 않음</button>
+<button type="button" data-learning="explained" aria-pressed="false">흐름·이유 설명</button>
+<button type="button" data-learning="revisit" aria-pressed="false">설명이 막힘</button>
+<button type="button" data-learning="deferred" aria-pressed="false">명시적으로 보류</button>
+</div>
+<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 240" role="img" aria-label="공동 E2E로 검증한 현재 기능을 사용자가 설명한다. task-evidence learning-review는 실제 설명과 막힌 노드를 기록한다. 기능 검증 상태와 이해 상태는 별개다." style="--ve-min: 995px">
+<path class="ve-e" d="M310 125H435"/><text class="ve-el" x="372" y="100">설명한다</text>
+<path class="ve-e" d="M765 125H890"/><text class="ve-el" x="827" y="100">대조·기록한다</text>
+<g class="ve-n"><rect class="sh" x="30" y="65" width="280" height="125"/><text x="170" y="91">현재 기능 · 검증 완료</text><text class="sub" x="170" y="129">원문 요구 · 실제 코드 · 지도</text><text class="sub" x="170" y="157">선택 이유 · 실패 · 검증 근거</text></g>
+<g class="ve-n human"><rect class="sh" x="435" y="65" width="330" height="125"/><text x="600" y="91">네 말로 짧게 설명</text><text class="sub" x="600" y="129">입력부터 결과까지 어떻게 흐르나</text><text class="sub" x="600" y="157">왜 이 구현을 선택했나</text></g>
+<g class="ve-n"><rect class="sh" x="890" y="65" width="240" height="125"/><text x="1010" y="91">task-evidence</text><text class="sub" x="1010" y="129">learning-review</text><text class="sub" x="1010" y="157">실제 설명 · 복습 지점</text></g>
+</svg>
+<p class="route-copy" id="learning-copy" aria-live="polite">아직 설명이 없으면 <strong>pending</strong>으로 기다린다. 기능 검증 완료를 네 이해의 증거로 바꾸지 않는다.</p>
+</div>
+<figcaption><span class="fig-n">Fig. 7</span> <strong>기능의 verified와 이해 상태를 따로 기록한다.</strong> 막힌 부분은 복습 표시를 남기고 다음 기능으로 갈 수 있다.</figcaption>
 </figure>
-<p class="note">프롬프트 전달과 판단은 과제·합의·검증 기록에서 살펴본다. 현재 별도의 자동 프롬프트 채점 스킬은 없다. <a href="workflow-design.md">설계 이유와 훈련 범위 읽기 ↗</a></p>
+<figure class="subfigure">
+<h3>문서·검증·설명도 180분 안에 포함한다.</h3>
+<div class="frame"><svg class="ve-svg ve-stack" viewBox="0 0 800 70" role="img" aria-label="조정 가능한 180분 운영안. 분석과 결정 15분, 기능 반복 145분, 최종 점검 20분."><rect x="0" y="0" width="66.67" height="40"/><text x="33.33" y="62">초안 15분</text><rect class="hot" x="66.67" y="0" width="644.44" height="40"/><text x="388.89" y="62">기능 반복 145분</text><rect x="711.11" y="0" width="88.89" height="40"/><text x="755.56" y="62">점검 20분</text></svg></div>
+<figcaption><span class="fig-n">Fig. 8</span> <strong>15분 초안·분해, 145분 기능 반복, 20분 전체 실행·제출 점검.</strong> 환경 준비와 문서 갱신도 포함한 운영안이며 실제 진척에 맞춰 조정한다.</figcaption>
+</figure>
+<p class="note">전체 작업 후 별도 6문항 연습은 요청할 때 진행한다. 기능마다 반복하는 추가 시험이 아니다. 프롬프트 전달·판단은 실제 결정 기록으로 살피며 자동 채점하지 않는다. <a href="../skills/task-delivery/references/hackathon.md">해커톤 절차 ↗</a> · <a href="workflow-design.md">설계 이유 ↗</a></p>
 </section>
 <section id="changes" aria-labelledby="impact-title">
 <div class="sec-head">
@@ -617,7 +632,7 @@ section{margin-top:var(--s-7)}
 </svg>
 </div>
 <p class="impact-status" id="impact-status" aria-live="polite"><strong>내부 구현만 변경:</strong> 호출 약속이 유지되는지 확인하고 도구의 기능·관련 회귀를 검증한다. 상위 흐름의 수정 필요성은 동작 변화에 따라 판단한다.</p>
-<figcaption><span class="fig-n">Fig. 8</span> <strong>공유할수록 호출 약속과 사용처를 함께 관리해야 한다.</strong> 계약이 달라지면 사용하는 흐름과 인계·실패 분기까지 다시 확인한다.</figcaption>
+<figcaption><span class="fig-n">Fig. 9</span> <strong>공유할수록 호출 약속과 사용처를 함께 관리해야 한다.</strong> 계약이 달라지면 사용하는 흐름과 인계·실패 분기까지 다시 확인한다.</figcaption>
 </figure>
 </section>
 
@@ -627,27 +642,156 @@ section{margin-top:var(--s-7)}
 <p><strong>작은 기능·TDD</strong> · <a href="https://github.com/mattpocock/skills">Matt Pocock skills</a><br>to-tickets의 분해 기준과 tdd를 선택했다.</p>
 <p><strong>두 지도의 표현</strong> · <a href="https://github.com/softaworks/agent-toolkit">Mermaid 스킬</a> · <a href="https://github.com/nicobailon/visual-explainer">visual-explainer</a><br>기계가 읽는 원본과 사람이 읽는 HTML을 연결했다.</p>
 <p><strong>워크플로우부터, 기능은 조합</strong> · <a href="https://github.com/fivetaku/gptaku_plugins">GPTaku</a><br>사용자가 선택한 두 레이어 관점을 이 작업 방식에 적용했다.</p>
-<p><strong>조사 기록</strong> · <a href="../THIRD_PARTY.md">공개 스킬 출처</a> · <a href="workflow-design.md">워크플로우 설계 기록</a><br>고정한 공식 원문·라이선스와 설계 이유를 연결했다.</p>
+<p><strong>고정 원문과 검증</strong> · <a href="../THIRD_PARTY.md">출처·버전·라이선스</a> · <a href="validation.md">검증 범위</a><br>스킬 원문과 공통 계약을 함께 유지한다.</p>
 </div>
-<p class="note">합의한 협업 방식을 구체화한 v1이다. 실제 과제 한 회차를 끝까지 적용한 검증은 다음 단계다.</p>
+<p class="note">스킬 v1.2 · 공유 계약 v1의 계획/학습 확장. 실제 과제 한 회차의 3시간 적합성과 사용자 설명 수행은 아직 검증하지 않았다.</p>
 </footer>
 </main>
 </div>
 <script>
 const steps=[
-{title:'과제·지시 파악',skill:'task-delivery',mode:'입력과 완료 기준 정리',kind:'자동화층 · 흐름 관리',input:['과제 원문 · 네 지시','기존 코드 · 제약'],output:['목표 · 완료 기준','미확인 조건 · 작업 범위'],human:'원하는 결과와 제약을 전달하고, 완료 기준이 맞는지 확인한다.',caution:'스킬은 에이전트가 읽고 따르는 절차다. 이 페이지의 버튼은 호출 관계를 설명한다.',source:'../skills/task-delivery/SKILL.md'},
-{title:'작은 기능 분해',skill:'to-tickets 기준 참고',mode:'작은 완결 기능으로 로컬 분해',kind:'공개 기준 · 로컬 적용',input:['과제 · 완료 기준','기존 구조 · 작업 제약'],output:['서브 과제 · 각각의 인수 기준','의존관계 · 진행 순서'],human:'각 서브 과제가 검증 가능한 작은 기능인지 함께 확인한다.',caution:'to-tickets의 분해 기준을 참고한다. 원본의 이슈 게시·트래커 설정 절차를 자동 실행하는 연결은 아니다.',source:'../skills/contracts/components.md'},
-{title:'두 지도 공유',skill:'task-maps',mode:'객체 지도 + 프로젝트 플로우 지도',kind:'도구층 · 지도 생성·갱신',input:['현재 서브 과제 · 실제 코드','기존 전체 지도'],output:['두 지도 · 원본 · HTML','현재 범위 · 지도 버전'],human:'어떤 객체가 무엇을 맡고 어디까지 구현할지, 어떤 공개 경로를 검증할지 합의한다.',caution:'너와 에이전트는 같은 노드 ID와 지도 버전을 본다. 아직 만들지 않은 구조는 계획으로 표시한다.',source:'../skills/task-maps/SKILL.md'},
-{title:'TDD 구현',skill:'tdd',mode:'실제 실패 → 최소 구현 → 통과',kind:'공개 스킬 · 현재 과제에 적용',input:['현재 과제 · 합의한 지도','인수 기준 · 검증 지점'],output:['변경 코드','Red · Green · 회귀 실행 근거'],human:'에이전트가 현재 과제를 구현한다. 요구나 설계 판단이 필요한 변경은 함께 확인한다.',caution:'테스트 하나의 실패 원인을 확인하고 최소 구현으로 통과시킨다. 실제 실행하지 않은 결과는 통과로 기록하지 않는다.',source:'../skills/contracts/components.md'},
-{title:'지도 갱신·인계',skill:'task-maps → task-evidence',mode:'지도 갱신 → handoff 모드',kind:'도구층 · 순서대로 조합',input:['변경 코드 · 실제 실행 기록','현재 인수 기준 · 기존 지도'],output:['갱신 지도 · 구현 인계서','공동 E2E 시나리오 · 미검증 범위'],human:'무엇이 바뀌었고 어떤 근거로 구현 완료를 보고하는지 받는다. 공동 E2E에서 확인할 경로를 본다.',caution:'상위 task-delivery가 awaiting_joint_e2e 상태로 기다린다. 구현 보고만으로 다음 과제를 시작하지 않는다.',source:'../skills/task-evidence/SKILL.md'},
-{title:'공동 E2E',skill:'task-evidence',mode:'joint-e2e 모드 + 프로젝트 실행 도구',kind:'도구층 · 실제 관찰과 결과 기록',input:['인계서 · 실제 실행 환경','함께 확인할 입력과 경로'],output:['관찰 결과 · 검증 판정','사용자 확인 · 미검증 항목'],human:'에이전트와 실제 입력부터 결과까지 함께 확인하고 기대한 동작인지 판단한다.',caution:'프로젝트 명령·도구로 실행하고 pass / fail / partial / blocked를 기록한다. 결과 확인과 다음 작업 결정은 구분한다.',source:'../skills/task-evidence/SKILL.md'},
-{title:'다음 작업 결정',skill:'task-delivery',mode:'검증 결과에 따라 진행·수정·대기',kind:'자동화층 · 상태 전이',input:['현재 코드 버전의 E2E 결과','너의 결과 확인'],output:['통과·확인 → 다음 과제 하나','실패 → 같은 과제 수정'],human:'필수 경로 통과와 결과 확인 후 다음 과제로 간다. 문제가 있으면 같은 과제를 다시 검증한다.',caution:'검증이 일부만 끝났거나 실행이 막히면 완료로 넘기지 않는다. 다음 과제도 두 지도 공유부터 시작한다.',source:'../skills/task-delivery/SKILL.md'}
+  {
+    "title": "핵심 결정·전체 구현 MD",
+    "skill": "task-delivery",
+    "mode": "초안을 보며 선택과 이유를 정리",
+    "kind": "자동화층 · 대화와 흐름 관리",
+    "input": [
+      "과제 원문 · 네 지시",
+      "기존 코드 · 제약"
+    ],
+    "output": [
+      "plan.md · 전체 구현 방향",
+      "결정 이유 · 요구 · 남은 가정"
+    ],
+    "human": "과제·코드를 읽은 초안에서 중요한 선택의 추천과 이유를 보고 함께 결정한다.",
+    "caution": "원문 요구·사용자 결정·AI 제안·가정을 구분한다. 이미 정한 내용은 재사용한다.",
+    "source": "../skills/task-delivery/assets/plan.md"
+  },
+  {
+    "title": "작은 기능 분해",
+    "skill": "to-tickets 기준 참고",
+    "mode": "입력부터 결과까지 작은 기능으로",
+    "kind": "공개 기준 · 로컬 적용",
+    "input": [
+      "전체 계획 · 요구 ID",
+      "합의한 결정 · 완료 기준"
+    ],
+    "output": [
+      "작업 순서 · 의존관계",
+      "현재 tasks/T01.md 상세화"
+    ],
+    "human": "현재 기능의 크기와 확인할 결과를 함께 정한다. 다음 기능은 우선 개요로 둔다.",
+    "caution": "전체 계획과 현재 작업을 요구·결정 ID로 연결한다. 원문의 이슈 게시 절차는 자동 실행하지 않는다.",
+    "source": "../skills/contracts/components.md"
+  },
+  {
+    "title": "두 지도 공유",
+    "skill": "task-maps",
+    "mode": "객체 지도 + 프로젝트 플로우 지도",
+    "kind": "도구층 · 지도 생성·갱신",
+    "input": [
+      "현재 작업 · 연결된 계획",
+      "코드 · 기존 전체 지도"
+    ],
+    "output": [
+      "두 지도 · maps/view.html",
+      "현재 위치 · 관련 요구와 결정"
+    ],
+    "human": "한 HTML에서 전체 흐름의 현재 위치와 이번 검증 경로를 읽는다.",
+    "caution": "요구 연결·동작·선택 이유·실패 조건·검증 근거를 짧게 보여준다. 계획과 실제 구현을 구분한다.",
+    "source": "../skills/task-maps/SKILL.md"
+  },
+  {
+    "title": "TDD 구현",
+    "skill": "tdd",
+    "mode": "실제 실패 → 최소 구현 → 통과",
+    "kind": "공개 스킬 · 현재 기능에 적용",
+    "input": [
+      "현재 작업 · 같은 지도",
+      "합의한 기준 · 검증 지점"
+    ],
+    "output": [
+      "변경 코드",
+      "Red · Green · 회귀 실행 근거"
+    ],
+    "human": "구현은 에이전트가 맡고, 중요한 요구나 설계 선택의 변경은 함께 정한다.",
+    "caution": "기대값은 원문 요구에서 도출한다. 실행 환경 오류와 기능의 실패를 구분한다.",
+    "source": "../skills/contracts/components.md"
+  },
+  {
+    "title": "지도 갱신·인계",
+    "skill": "task-maps → task-evidence",
+    "mode": "지도 갱신 → handoff",
+    "kind": "도구층 · 순서대로 조합",
+    "input": [
+      "변경 코드 · 실제 실행 기록",
+      "현재 작업 · 기존 지도"
+    ],
+    "output": [
+      "갱신 지도 · 기능별 다섯 항목",
+      "E2E 시나리오 · 미검증 범위"
+    ],
+    "human": "무엇이 바뀌었는지와 함께 실행할 E2E 경로를 한 화면에서 확인한다.",
+    "caution": "문서·지도 갱신은 에이전트가 맡고 awaiting_joint_e2e에서 공동 검증을 기다린다.",
+    "source": "../skills/task-evidence/SKILL.md"
+  },
+  {
+    "title": "공동 E2E",
+    "skill": "task-evidence",
+    "mode": "joint-e2e + 프로젝트 실행 도구",
+    "kind": "도구층 · 실제 관찰과 결과 기록",
+    "input": [
+      "인계서 · 실제 실행 환경",
+      "함께 확인할 입력과 경로"
+    ],
+    "output": [
+      "관찰 결과 · 검증 판정",
+      "사용자 결과 확인 · 남은 범위"
+    ],
+    "human": "실제 입력부터 결과까지 함께 확인하고 기대한 동작인지 판단한다.",
+    "caution": "현재 코드의 필수 E2E 통과와 사용자 확인이 있어야 verified다. 이해 상태는 별도로 확인한다.",
+    "source": "../skills/task-evidence/SKILL.md"
+  },
+  {
+    "title": "자기 설명·복습 기록",
+    "skill": "task-evidence",
+    "mode": "learning-review · 실제 설명 대조",
+    "kind": "도구층 · 이해 기록 반환",
+    "input": [
+      "현재 코드 · 지도 · 결정 이유",
+      "네가 실제로 설명한 내용"
+    ],
+    "output": [
+      "설명 상태 · 확인한 부분",
+      "막힌 노드 · 다시 볼 질문"
+    ],
+    "human": "60~90초 정도 입력부터 결과까지의 흐름과 핵심 선택 이유를 네 말로 설명한다.",
+    "caution": "막힘은 revisit으로 남기고 진행할 수 있다. 명시적 보류는 deferred, 미응답은 pending이다.",
+    "source": "../skills/task-evidence/SKILL.md"
+  },
+  {
+    "title": "다음 작업 결정",
+    "skill": "task-delivery",
+    "mode": "검증과 설명 기록에 따라 진행",
+    "kind": "자동화층 · 순서와 상태 관리",
+    "input": [
+      "E2E 결과 · 사용자 확인",
+      "설명·복습 또는 명시적 보류"
+    ],
+    "output": [
+      "다음 기능의 작업 MD·지도",
+      "실패는 같은 기능 수정"
+    ],
+    "human": "기능 결과와 복습 표시를 확인하고 다음 기능의 맥락을 함께 읽는다.",
+    "caution": "응답 부재를 설명 완료로 기록하지 않는다. 마지막 20분에는 전체 실행·제출·복습 정리를 한다.",
+    "source": "../skills/task-delivery/references/hackathon.md"
+  }
 ];
 const stepFields={title:'calls-title',skill:'step-skill',mode:'step-mode',kind:'step-kind',human:'step-human',caution:'step-caution'};
 document.querySelectorAll('button[data-step]').forEach(button=>button.addEventListener('click',()=>{
 const index=Number(button.dataset.step);const item=steps[index];
 for(const [key,id] of Object.entries(stepFields))document.getElementById(id).textContent=item[key];
-document.getElementById('step-index').textContent=String(index+1).padStart(2,'0')+' / 07';
+document.getElementById('step-index').textContent=String(index+1).padStart(2,'0')+' / '+String(steps.length).padStart(2,'0');
 item.input.forEach((value,i)=>document.getElementById('step-in'+(i+1)).textContent=value);
 item.output.forEach((value,i)=>document.getElementById('step-out'+(i+1)).textContent=value);
 document.getElementById('step-source').href=item.source;
@@ -658,11 +802,30 @@ const routeFigure=document.getElementById('workflow');
 const routeText=document.getElementById('route-copy');
 const routeState=document.getElementById('route-state');
 const routes={
-handoff:{state:'awaiting_joint_e2e',tone:'warn',copy:'<strong>구현 완료 · 공동 검증 대기.</strong> 에이전트가 변경 코드, 테스트 근거, 갱신된 지도를 인계한다. 너와 실제 입력부터 결과까지 확인한 뒤 다음 과제로 간다.'},
-pass:{state:'verified → 다음 과제 준비',tone:'ok',copy:'<strong>공동 E2E 통과 + 너의 결과 확인.</strong> 현재 코드에서 필수 경로가 통과했음을 기록한다. 완료를 지도에 반영하고 다음 과제 하나의 범위와 검증 지점을 함께 본다.'},
-fail:{state:'fixing · 현재 과제 유지',tone:'risk',copy:'<strong>공동 E2E 실패 → 같은 과제로 복귀.</strong> 기대 결과와 실제 결과의 차이를 남긴다. 재현 테스트, 수정, 지도 갱신, 결과 인계를 거쳐 같은 경로를 다시 검증한다.'}
+  "handoff": {
+    "state": "awaiting_joint_e2e",
+    "tone": "warn",
+    "copy": "<strong>구현 완료 · 공동 검증 대기.</strong> 변경 코드·실제 테스트·갱신 지도를 인계한다. 너와 실제 경로를 확인한 뒤 짧은 자기 설명으로 이어간다."
+  },
+  "pass": {
+    "state": "verified · 설명 pending",
+    "tone": "ok",
+    "copy": "<strong>기능 검증 완료 · 자기 설명 차례.</strong> 현재 코드의 필수 경로 통과와 네 결과 확인을 기록한다. 입력부터 결과까지의 흐름과 핵심 선택 이유를 네 말로 확인한다."
+  },
+  "fail": {
+    "state": "fixing · 현재 기능 유지",
+    "tone": "risk",
+    "copy": "<strong>공동 E2E 실패 → 같은 기능 수정.</strong> 기대와 실제 결과의 차이를 재현하고 수정·회귀·지도 갱신 뒤 같은 경로를 다시 확인한다."
+  },
+  "learning": {
+    "state": "설명 기록 → 다음 기능 준비",
+    "tone": "ok",
+    "copy": "<strong>설명 또는 명시적 보류를 기록했다.</strong> explained·revisit·deferred 상태와 복습 지점을 남긴 뒤 다음 기능의 MD와 지도를 공유한다. 응답이 없으면 pending으로 기다린다."
+  }
 };
 document.querySelectorAll('button[data-route]').forEach(button=>button.addEventListener('click',()=>{const mode=button.dataset.route;const item=routes[mode];routeFigure.dataset.route=mode;routeText.innerHTML=item.copy;routeState.textContent=item.state;routeState.className='chip '+item.tone;document.querySelectorAll('button[data-route]').forEach(other=>other.setAttribute('aria-pressed',String(other===button)));}));
+const learningCopy={pending:'아직 설명이 없으면 <strong>pending</strong>으로 기다린다. 기능 검증 완료를 네 이해의 증거로 바꾸지 않는다.',explained:'<strong>explained · 흐름과 선택 이유를 확인했다.</strong> 실제 설명과 현재 코드의 연결을 기록하고 다음 기능을 준비한다. 시험 통과를 보장하는 표시는 아니다.',revisit:'<strong>revisit · 막힌 지점을 복습으로 남긴다.</strong> 관련 노드·코드를 짚어 짧게 보충하고 다음 기능으로 진행할 수 있다. 실제 코드 오류가 발견되면 같은 기능을 수정한다.',deferred:'<strong>deferred · 네가 이번 설명을 명시적으로 보류했다.</strong> 보류 발언과 다시 볼 위치를 남기고 진행한다. 아직 설명하지 않은 부분은 미확인이다.'};
+document.querySelectorAll('button[data-learning]').forEach(button=>button.addEventListener('click',()=>{const state=button.dataset.learning;document.getElementById('learning').dataset.learning=state;document.getElementById('learning-copy').innerHTML=learningCopy[state];document.querySelectorAll('button[data-learning]').forEach(other=>other.setAttribute('aria-pressed',String(other===button)));}));
 const impactFigure=document.getElementById('impact');
 const impactStatus=document.getElementById('impact-status');
 const impactCopy={inside:'<strong>내부 구현만 변경:</strong> 같은 입력에 필요한 지도·오류 의미가 유지되는지 확인한다. 도구 기능과 영향을 받는 회귀를 검사한다.',contract:'<strong>입출력·실패 상태 변경:</strong> 공유 계약의 주 버전을 올리고 사용하는 흐름을 찾아 호출·분기·해석을 맞춘다. 정상 인계, 실패 복귀, 사용자 확인 누락, 오래된 지도의 처리를 다시 검토한다.'};

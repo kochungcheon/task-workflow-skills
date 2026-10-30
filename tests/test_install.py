@@ -32,6 +32,8 @@ class InstallTest(unittest.TestCase):
         self.assertTrue((moved / "tdd/tests.md").is_file())
         self.assertTrue((moved / "visual-explainer/kit/render.mjs").is_file())
         self.assertTrue((moved / "visual-explainer/package-lock.json").is_file())
+        self.assertTrue((moved / "task-delivery/assets/plan.md").is_file())
+        self.assertTrue((moved / "task-delivery/references/hackathon.md").is_file())
 
     def test_rerun_preserves_same_files_and_runtime(self):
         self.assertEqual(self.run_install().returncode, 0)
