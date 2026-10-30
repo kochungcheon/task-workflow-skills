@@ -12,7 +12,7 @@
 
 ## 패키지에서 추가한 부분
 
-- `task-delivery`, `task-maps`, `task-evidence`와 공통 계약·과제 양식은 이 패키지의 협업 절차입니다.
+- `task-delivery`, `task-design-dialogue`, `task-maps`, `task-evidence`와 공통 계약·과제 양식은 이 패키지의 협업 절차입니다. 설계 대화의 질문 순서에는 Matt Pocock `grilling`의 결정 의존관계 방식을 참고했으며 원문 파일은 복사하지 않았습니다.
 - visual-explainer에 HTML 렌더링용 `package.json`과 `package-lock.json`을 추가했습니다. Playwright Core 1.64.1을 고정하며 기존 원문 파일은 수정하지 않았습니다. 영상·슬라이드·MCP의 추가 의존성은 해당 원문 지침을 따릅니다.
 - visual-explainer에 포함된 PELE 자원의 라이선스는 [PELE-LICENSE](skills/visual-explainer/kit/vendor/PELE-LICENSE)를 보존했습니다. Node 의존성의 라이선스는 npm 패키지에 포함됩니다.
 - `to-tickets`의 분해 기준은 로컬 어댑터로 적용합니다. 공개 원문의 게시 절차·트래커 설정을 자동으로 실행하지 않습니다.

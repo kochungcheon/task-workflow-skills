@@ -7,6 +7,7 @@
 | 기능 | 호출자 | 입력 → 출력 | 누락·실패 시 |
 |---|---|---|---|
 | 과제 분해 · to-tickets 기준 | task-delivery | 원문·합의한 전체 계획 → 기능 순서·의존관계, 현재 TaskPacket | 모호한 기준/순환 의존을 알려 현재 분해에서 해결 |
+| 설계 대화 · task-design-dialogue | task-delivery, 단독 설계 대화 | 요구·코드·계획 초안 → 결정 ID·상태·가정·작업/지도 변경 요약 | 현재 구현을 바꾸는 미결정과 근거 부족을 드러내 대화를 이어감 |
 | 지도 · task-maps | task-delivery, 단독 지도 요청 | TaskPacket·코드·기존 지도 → MapSet | 불일치·읽을 수 없는 코드·렌더 불가를 blocked로 반환 |
 | 구현 · tdd | task-delivery | 합의한 TaskPacket·MapSet → 변경 코드, 실제 Red/Green·회귀 근거 | 환경 오류/기능 실패/범위 변경을 구분해 반환 |
 | 근거 · task-evidence | task-delivery, 단독 인계/E2E 검토 | 현재 패키지·실행 기록 → handoff 또는 joint-e2e Evidence | 누락은 blocked/needs_work, 관찰 실패는 fail |
@@ -17,7 +18,7 @@
 
 `task-delivery`만 순서·재시도·멈춤·재개를 결정한다. 공개 기능은 아래 어댑터를 통해 공통 계약에 맞춘다. 파일을 읽어 에이전트가 수행하는 조합이며 함수 호출 API가 아니다.
 
-대화로 결정한 전체 구현 방향은 `plan.md`의 PlanNote에 두고, 현재 작업 MD가 요구 ID·결정 ID를 참조한다. 초안 작성과 중요한 선택 확인은 `task-delivery`가 진행하며 도구층은 같은 계획·작업을 입력으로 받는다.
+티켓 분해와 함께 찾은 기술적 선택은 `plan.md`의 PlanNote에 결정 ID로 둔다. `task-delivery`가 요구·코드의 사실과 작업 순서의 초안을 먼저 만들고 `task-design-dialogue`로 중요한 선택을 사용자와 왕복한다. 현재 작업 MD는 요구·결정·반영된 가정 ID를 참조한다. `task-maps`는 결정 ID를 관련 책임 노드와 HTML 요약에 연결하고 현재 작업의 미확인 가정도 표시한다. `task-evidence`는 구현된 선택과 근거가 계획·지도와 맞는지 확인한다. 도구층은 같은 계획·작업을 입력으로 받는다.
 
 해커톤·시험 대비에서는 `task-delivery`가 기능 검증 뒤 짧은 설명을 요청하고 `learning-review`에 실제 응답을 전달한다. `task-maps`는 같은 과제의 이해 기록과 관련 노드를 연결한다. LearningNote는 v1의 선택 확장이며 기존 Evidence·verified 의미는 유지한다.
 

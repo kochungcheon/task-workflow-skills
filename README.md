@@ -1,15 +1,18 @@
 # Task Workflow Skills
 
-과제 MD를 **핵심 결정 대화 → 전체 구현 MD → 작은 작업 MD → 공유 지도 → TDD → 공동 E2E**로 진행하는 에이전트 스킬 묶음입니다. 3시간 해커톤·시험 대비에서는 기능별 짧은 자기 설명과 복습 기록을 연결합니다.
+과제 MD를 **티켓 분해와 기술적 갈림길 식별 → 핵심 결정 대화 → 전체 구현 MD·공유 지도 → TDD → 공동 E2E**로 진행하는 에이전트 스킬 묶음입니다. 3시간 해커톤·시험 대비에서는 기능별 짧은 자기 설명과 복습 기록을 연결합니다.
 
-`task-delivery`가 진행을 관리하고 `task-maps`와 `task-evidence`가 산출물을 만듭니다. 에이전트가 읽고 수행하는 절차이며, 별도 서버나 자동 실행 엔진은 없습니다.
+먼저 원문·기존 코드에서 확인할 사실을 조사해 작업과 중요한 선택지의 초안을 보여줍니다. 사용자와 현재 구현을 바꾸는 결정을 논의하고, 미확인 가정은 영향·확인 시점·적용 위치를 적어 둡니다. 초안을 보고 결정하는 순서는 [GPTaku show-me-the-prd](https://github.com/fivetaku/show-me-the-prd)의 방식을 과제 MD 중심으로 조정한 것입니다.
+
+`task-delivery`가 진행을 관리하고 `task-design-dialogue`가 사용자와 설계를 문답하며, `task-maps`와 `task-evidence`가 지도와 검증 근거를 만듭니다. 에이전트가 읽고 수행하는 절차이며, 별도 서버나 자동 실행 엔진은 없습니다.
 
 ## 포함한 스킬
 
 | 구분 | 스킬 | 역할 |
 |---|---|---|
 | 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 핵심 결정·전체 계획·분해·현재 과제·검증/설명 후 다음 과제 |
-| 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체 지도와 프로젝트 흐름 지도 생성·갱신 |
+| 도구 | [task-design-dialogue](skills/task-design-dialogue/SKILL.md) | 중요한 기술 선택을 사용자와 질문·반론·수정안으로 다듬고 결정 기록 |
+| 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체·흐름 지도와 결정 ID가 연결된 HTML 생성·갱신 |
 | 도구 | [task-evidence](skills/task-evidence/SKILL.md) | handoff·joint-e2e 근거, learning-review 이해 기록 |
 | 공개 기능 | to-tickets · tdd · codebase-design | 작은 기능 분해 기준·TDD·책임과 경계 설계 |
 | 공개 기능 | mermaid-diagrams · visual-explainer | 지도 원본과 사용자용 HTML |
@@ -29,7 +32,7 @@ python3 scripts/install.py --target ../my-project/.agents/skills
 
 `my-project`를 사용할 프로젝트 위치로 바꿉니다. 대상 도구가 다른 스킬 폴더를 사용하면 `--target`에 그 폴더를 지정합니다. 예를 들어 개인 Codex 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사용할 수 있습니다. 기존 스킬이 다른 내용이면 설치를 중단하며 덮어쓰지 않습니다. 같은 내용으로 다시 실행하면 그대로 재사용합니다.
 
-설치기는 스킬 8개와 공통 `contracts` 폴더를 함께 복사합니다. **SKILL.md 하나만 복사하면 공통 계약·참조 파일을 잃습니다.** 개별 스킬만 내려받는 일반 설치기 대신 위 패키지 설치 명령을 사용하세요. 설치 후 도구의 스킬 목록을 다시 불러오거나 새 세션에서 시작합니다.
+설치기는 스킬 9개와 공통 `contracts` 폴더를 함께 복사합니다. **SKILL.md 하나만 복사하면 공통 계약·참조 파일을 잃습니다.** 개별 스킬만 내려받는 일반 설치기 대신 위 패키지 설치 명령을 사용하세요. 설치 후 도구의 스킬 목록을 다시 불러오거나 새 세션에서 시작합니다.
 
 프로젝트에서 직접 읽게 하려면 [AGENTS.snippet.md](AGENTS.snippet.md)의 짧은 연결 문구를 기존 AGENTS.md에 추가할 수 있습니다. 설치기는 기존 프로젝트 지침을 수정하지 않습니다.
 
@@ -46,7 +49,7 @@ node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.sr
 
 ## 시작 문장
 
-> 이 과제 MD를 3시간 해커톤용 task-delivery로 진행하자. 핵심 결정은 함께 이야기하고 plan.md에 전체 구현 방향과 이유를 정리해줘. 작게 나눠 현재 작업 MD와 두 지도부터 보여줘. TDD와 공동 E2E 뒤 내가 짧게 설명하고 다음 기능으로 가자.
+> 이 과제 MD를 3시간 해커톤용 task-delivery로 진행하자. 티켓과 설계 갈림길의 초안을 먼저 보여주고, 중요한 선택은 나와 질문·반론을 주고받으며 정해줘. 결정과 남은 가정을 객체 지도와 HTML에 연결해줘. 현재 작업 MD와 지도를 읽는 동안 구현하고, TDD와 공동 E2E 뒤 내가 짧게 설명하고 다음 기능으로 가자.
 
 기본 수행자는 현재 에이전트입니다. 별도 에이전트 위임은 요청했을 때 사용합니다. 이미 합의한 범위·검증 지점은 재사용합니다.
 
@@ -54,11 +57,13 @@ node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.sr
 
 ## 3시간 동안 읽을 문서와 설명
 
-- `plan.md`: 전체 구현 방향·요구 연결·결정과 이유·남은 가정·작업 순서·복습 색인.
-- `tasks/T01.md`: 현재 기능의 범위·동작 경로·실패 조건·검증 근거·실제 사용자 설명. 공통 결정은 계획의 ID로 참조합니다.
-- `maps/view.html`: 사용자가 계속 읽는 한 화면. 전체 흐름의 현재 위치와 해당 기능의 다섯 항목·복습 표시를 연결합니다.
+- `plan.md`: 전체 구현 방향·요구 연결·기술적 선택과 대안·판단 근거·남은 가정·작업 순서·복습 색인.
+- `tasks/T01.md`: 현재 기능의 범위·동작 경로·실패 조건·검증 근거·실제 사용자 설명. 공통 결정과 반영된 가정은 계획의 ID로 참조합니다.
+- `maps/view.html`: 사용자가 계속 읽는 한 화면. 전체 흐름의 현재 위치와 중요한 결정의 상태·이유·대안·관련 객체 노드, 해당 기능의 검증·복습 표시를 연결합니다.
 
 문서 갱신은 에이전트가 맡습니다. 전체 순서부터 잡고 현재 기능을 상세화합니다. 15분 분석/결정/분해, 145분 기능 반복, 20분 전체 실행/제출 점검은 환경·문서 작성도 포함하는 조정 가능한 운영안입니다.
+
+구현량이 많을 때에도 별도 PRD·intent 문서나 단계별 평가표를 필수로 만들지 않습니다. 기존 `plan.md`에서 중요한 전제·결정을 확인하고, 현재 기능의 지도·검증 근거를 갱신합니다.
 
 공동 E2E 뒤 60~90초 정도 동작 흐름과 선택 이유를 사용자 말로 확인합니다. `verified`와 `learning_status`는 별개입니다. 막힘은 `revisit`으로 남기고 진행할 수 있으며, 명시적 보류는 `deferred`, 미응답은 `pending`입니다. 정확한 대기·재개 조건은 [해커톤 절차](skills/task-delivery/references/hackathon.md)를 따릅니다. 일반 개발 모드는 자기 설명 단계를 요구하지 않습니다.
 
@@ -77,6 +82,6 @@ node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.sr
 - `python3 scripts/check.py`: 원문 해시·필수 자원·내부 링크·개인 절대 경로 점검
 - `python3 -m unittest discover -s tests -v`: 설치·경로 이동·재실행·충돌 보존 검사
 
-전체 실제 과제 한 회차와 3시간 운영의 행동 검증은 아직 수행하지 않았습니다. 기능별 자기 설명은 연결했으며, 전체 작업 후 별도 6문항 연습의 자동 출제나 프롬프트 자동 채점은 포함하지 않습니다.
+ROOM-TS-1 시범 과제에서 기능별 검증은 수행했으나 실제 3시간 소요와 사후 설명 효과는 측정하지 못했습니다. 이번 결정 대화·지도 표시 변경의 실제 사용도 다음 과제에서 확인해야 합니다. 전체 작업 후 별도 6문항 연습의 자동 출제나 프롬프트 자동 채점은 포함하지 않습니다.
 
 작성한 스킬·설치 도구는 [MIT](LICENSE), 공개 스킬은 각각 동봉된 원저자의 MIT 라이선스를 따릅니다.
