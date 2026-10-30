@@ -1,6 +1,6 @@
 # Package maintenance
 
-This repository packages four authored workflow skills and six pinned public skills.
+This repository packages five authored workflow skills and six pinned public skills.
 
 - Read `skills/contracts/components.md` before changing dependency resolution or call boundaries.
 - Preserve the shared-map, one-current-task, real TDD evidence, and joint-E2E confirmation behavior when changing packaging.

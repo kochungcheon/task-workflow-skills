@@ -67,7 +67,7 @@ joint-e2e에는 실행 환경, 실제 진입점부터 관찰 결과까지의 범
 
 ## ReviewBrief · 누적 복습 화면의 선택 확장
 
-해커톤·시험 대비의 `.workflow/<과제명>/review.md`는 `plan.md`·작업 MD·지도·Evidence·LearningNote를 읽기 위한 **파생 요약**이다. [양식](../task-evidence/assets/review.md)을 참고한다. 원본 상태를 이 파일에서 새로 판정하지 않는다.
+해커톤·시험 대비의 `.workflow/<과제명>/review.md`는 `plan.md`·작업 MD·지도·Evidence·LearningNote를 읽기 위한 **파생 요약**이다. [task-review 양식](../task-review/assets/review.md)을 참고한다. 원본 상태를 이 파일에서 새로 판정하지 않는다.
 
 기준 시점과 `plan_revision / map_revision / code_ref`, 요구와 전체 실행 경로, 기능별 구현·공동 E2E·설명 상태, 실제로 택한 중요한 결정과 대안 조건, 확인한 검사·미검증 범위, 사용자와 다시 논의할 질문·실제 답변 상태를 원본 링크와 함께 둔다. 과제 시작·기능 인계·공동 E2E·설명·중요한 설계 변경 뒤 영향받는 부분만 갱신한다. 사실·사용자 발언·AI 요약을 구분하고 오래된 코드 기준의 근거는 현재 검증처럼 표시하지 않는다. 인터뷰 연습 질문은 실제 구현과 결정에서 만든 연습이며 실제 문항 예측이 아니다.
 

@@ -13,7 +13,8 @@
 | 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 전체 순서·현재 작업·검증 후 다음 작업 관리 |
 | 도구 | [task-design-dialogue](skills/task-design-dialogue/SKILL.md) | 기술 선택 문답과 결정·가정 기록 |
 | 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체·흐름 지도와 HTML 생성·갱신 |
-| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | 구현 인계·공동 E2E·설명 근거·누적 복습 문서 정리 |
+| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | 구현 인계·공동 E2E·기능별 설명 근거 정리 |
+| 도구 | [task-review](skills/task-review/SKILL.md) | 누적 `review.md`와 기술 인터뷰 복습 질문 정리 |
 
 공개 스킬 6개도 묶었습니다: `to-tickets`(기능 분해), `tdd`(테스트 후 구현), `codebase-design`(책임 설계), `mermaid-diagrams`(지도 원본), `visual-explainer`(HTML), `simple-english`(기술 문장). 출처와 라이선스는 [THIRD_PARTY.md](THIRD_PARTY.md)에 있습니다.
 
@@ -35,4 +36,4 @@ Codex 개인 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사�
 
 > 이 과제를 3시간 해커톤용 `task-delivery`로 진행하자. 독립적인 사실 조사는 병렬로 하고 하나의 티켓·기술 선택 초안으로 합쳐줘. 결정 후 현재 작업 MD·지도·누적 복습 문서를 만들고, 현재 작업 하나만 TDD로 구현해줘. 나는 구현 중 지도와 복습 문서를 읽고, 함께 E2E를 확인한 다음 설명하고 다음 기능으로 갈게. 끝나면 중요한 기술 선택과 검증을 바탕으로 인터뷰 답변을 연습하자. 병렬로 해도 될지 애매하면 순차로 진행해줘.
 
-`$task-delivery <과제 MD 경로>`로 시작해도 됩니다. 설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 인계·검증·누적 복습만 필요하면 `task-evidence`를 요청합니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다. 구현 보고 뒤에는 공동 E2E로 결과를 확인하고 같은 작업을 마친 다음 다음 작업으로 진행합니다.
+`$task-delivery <과제 MD 경로>`로 시작해도 됩니다. 설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 인계·공동 검증만 필요하면 `task-evidence`, 지금까지의 복습 문서만 필요하면 `$task-review <과제 작업 경로>`를 요청합니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다. 구현 보고 뒤에는 공동 E2E로 결과를 확인하고 같은 작업을 마친 다음 다음 작업으로 진행합니다.

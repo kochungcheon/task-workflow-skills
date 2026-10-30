@@ -27,7 +27,7 @@ class InstallTest(unittest.TestCase):
         shutil.move(self.target, moved)
         contract = moved / "task-delivery" / "../contracts/task-workflow-v1.md"
         self.assertTrue(contract.is_file())
-        for name in ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer", "simple-english"):
+        for name in ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "task-review", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer", "simple-english"):
             self.assertTrue((moved / name / "SKILL.md").is_file(), name)
         self.assertTrue((moved / "simple-english/references/use-cases.md").is_file())
         self.assertTrue((moved / "simple-english/LICENSE").is_file())
@@ -36,6 +36,7 @@ class InstallTest(unittest.TestCase):
         self.assertTrue((moved / "visual-explainer/package-lock.json").is_file())
         self.assertTrue((moved / "task-delivery/assets/plan.md").is_file())
         self.assertTrue((moved / "task-delivery/references/hackathon.md").is_file())
+        self.assertTrue((moved / "task-review/assets/review.md").is_file())
 
     def test_rerun_preserves_same_files_and_runtime(self):
         self.assertEqual(self.run_install().returncode, 0)

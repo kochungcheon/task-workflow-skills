@@ -13,7 +13,8 @@
 | 자동화 | [task-delivery](../skills/task-delivery/SKILL.md) | 과제 시작부터 분해·구현·공동 검증·다음 기능 진행까지 관리 |
 | 도구 | [task-design-dialogue](../skills/task-design-dialogue/SKILL.md) | 티켓 분해 때와 구현 중 중요한 기술 선택을 사용자와 문답 |
 | 도구 | [task-maps](../skills/task-maps/SKILL.md) | 현재 기능의 객체·흐름 지도와 HTML을 만들거나 갱신 |
-| 도구 | [task-evidence](../skills/task-evidence/SKILL.md) | 구현 인계·공동 E2E·사용자 설명과 누적 복습 정리 |
+| 도구 | [task-evidence](../skills/task-evidence/SKILL.md) | 구현 인계·공동 E2E·기능별 사용자 설명의 근거 정리 |
+| 도구 | [task-review](../skills/task-review/SKILL.md) | 누적 복습 문서와 기술 인터뷰 연습 질문 정리 |
 
 공개 스킬 `to-tickets`·`tdd`·`codebase-design`·`mermaid-diagrams`·`visual-explainer`·`simple-english`도 함께 설치합니다. 마지막 스킬은 영어 기술 문서에 직접 적용합니다. 한국어 문서에는 행위자·조건·결과를 분명히 쓰는 원칙만 적용합니다. `task-delivery`가 필요한 시점에 조합합니다.
 
@@ -24,4 +25,4 @@
 3. 현재 작업 MD와 지도를 확인합니다. TDD 전에 HTML의 현재 작업 기록에서 예정 코드 경로·선택 이유·검증 지점을 읽습니다. `review.md`에는 지금까지의 완료 기능과 기술 선택을 누적합니다. 사용자는 구현 중 두 문서를 읽고, 에이전트는 같은 작업의 E2E를 준비합니다. 구조·결정이 바뀌면 구현을 멈추고 지도 갱신을 알립니다. 인계 때 계획과 실제 코드·E2E 절차를 연결합니다.
 4. 함께 실제 입력부터 결과까지 E2E를 확인합니다. 실패하면 같은 작업을 수정합니다. 통과하면 사용자가 동작·선택 이유·한계를 자기 말로 짧게 설명하고 `review.md`의 설명 상태·다음 대화 지점을 갱신한 뒤 다음 작업으로 갑니다.
 
-설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 누적 복습이나 완료 근거만 필요하면 `task-evidence`를 직접 요청합니다. 최종 문서에는 실제 선택에서 나온 인터뷰 연습 질문을 모읍니다. 사용자가 답하면 원문·근거를 대조해 갱신합니다.
+설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 완료 근거만 필요하면 `task-evidence`, 누적 복습만 필요하면 `task-review`를 직접 요청합니다. 최종 문서에는 실제 선택에서 나온 인터뷰 연습 질문을 모읍니다. 사용자가 답하면 원문·근거를 대조해 갱신합니다.

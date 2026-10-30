@@ -142,7 +142,7 @@ section{margin-top:var(--s-7)}
 <button type="button" data-step="3" aria-pressed="false" aria-controls="step-detail"><span class="step-number">04 →</span><strong>TDD 구현</strong><small>tdd</small></button>
 <button type="button" data-step="4" aria-pressed="false" aria-controls="step-detail"><span class="step-number">05 →</span><strong>지도 갱신·인계</strong><small>task-maps<br>→ task-evidence</small></button>
 <button type="button" data-step="5" aria-pressed="false" aria-controls="step-detail"><span class="step-number">06 →</span><strong>공동 E2E</strong><small>task-evidence<br>+ 프로젝트 실행 도구</small></button>
-<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 →</span><strong>자기 설명·복습</strong><small>task-evidence<br>learning-review · review</small></button>
+<button type="button" data-step="6" aria-pressed="false" aria-controls="step-detail"><span class="step-number">07 →</span><strong>자기 설명·복습</strong><small>task-evidence → task-review<br>설명 기록 → 누적 복습</small></button>
 <button type="button" data-step="7" aria-pressed="false" aria-controls="step-detail"><span class="step-number">08 ↺</span><strong>다음 작업 결정</strong><small>task-delivery</small></button>
 </div>
 </div>
@@ -244,27 +244,29 @@ section{margin-top:var(--s-7)}
 </figure>
 </div>
 <div class="package"><div><strong>plan.md · 결정의 원본</strong><small>기술적 질문 · 선택·이유 · 대안·조건 · 사용자 판단</small></div><div class="shared"><strong>objects.mmd · 결정의 위치</strong><small>예시 D01 → A3 저장소의 책임과 경계</small></div><div><strong>maps/view.html · 읽을 화면</strong><small>중요 결정 전체의 상태·대안·한계·검증을 찾는다.</small></div></div>
-<p class="note">구현 중에는 현재 기능의 결정을 지도 첫 화면에 표시한다. <a href="../skills/task-evidence/assets/review.md">review.md 양식 ↗</a>은 완료한 기능·결정·검증·다시 설명할 질문을 한 문서로 누적한다. 결정 설명만 바뀌면 구조 지도 버전은 유지한다.</p>
+<p class="note">구현 중에는 현재 기능의 결정을 지도 첫 화면에 표시한다. <a href="../skills/task-review/assets/review.md">review.md 양식 ↗</a>은 완료한 기능·결정·검증·다시 설명할 질문을 한 문서로 누적한다. 결정 설명만 바뀌면 구조 지도 버전은 유지한다.</p>
 </section>
 <section id="composition" aria-labelledby="composition-title">
 <div class="sec-head"><p class="ve-label">COMPOSABLE SKILLS</p><h2 id="composition-title">상위 스킬은 흐름을, 도구 스킬은 결과를 맡는다.</h2></div>
 <figure>
-<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 430" role="img" aria-label="상위 task-delivery가 설계 문답, 지도, TDD, 근거 기능을 조합한다. 도구는 결과와 실패 원인을 반환한다. task-maps는 책임 설계, Mermaid, HTML 표현을 조합한다.">
+<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 430" role="img" aria-label="상위 task-delivery가 설계 문답, 지도, TDD, 검증 근거, 누적 복습 스킬을 조합한다. 도구는 결과와 실패 원인을 반환한다.">
 <rect class="ve-bnd" x="20" y="18" width="1120" height="136" rx="4"/><text class="ve-bnd-t" x="38" y="43">AUTOMATION LAYER · 순서 / 분기 / 재시도 / 멈춤 / 재개</text>
 <rect class="ve-bnd" x="20" y="245" width="1120" height="165" rx="4"/><text class="ve-bnd-t" x="38" y="393">TOOL LAYER · 입력을 받고 산출물 / 판정 / 실패 원인을 반환</text>
-<path class="ve-e" d="M115 128V274"/><text class="ve-el l" x="105" y="203">요청</text><path class="ve-e" d="M185 274V128"/><text class="ve-el r" x="195" y="203">반환</text>
-<path class="ve-e" d="M395 128V274"/><text class="ve-el l" x="385" y="203">요청</text><path class="ve-e" d="M465 274V128"/><text class="ve-el r" x="475" y="203">반환</text>
-<path class="ve-e" d="M675 128V274"/><text class="ve-el l" x="665" y="203">요청</text><path class="ve-e" d="M745 274V128"/><text class="ve-el r" x="755" y="203">반환</text>
-<path class="ve-e" d="M955 128V274"/><text class="ve-el l" x="945" y="203">요청</text><path class="ve-e" d="M1025 274V128"/><text class="ve-el r" x="1035" y="203">반환</text>
-<g class="ve-n is-key"><rect class="sh" x="40" y="62" width="1080" height="66"/><text x="580" y="84">task-delivery · 기술 선택 대화부터 검증·설명 후 다음 단계까지 관리한다</text><text class="sub" x="580" y="110">v1.3 · 순서와 작업 상태의 관리 주체</text></g>
-<g class="ve-n"><rect class="sh" x="40" y="274" width="220" height="86"/><text x="150" y="299">task-design-dialogue</text><text class="sub" x="150" y="326">사용자·AI 설계 문답</text><text class="sub" x="150" y="347">결정 · 가정 · 영향</text></g>
-<g class="ve-n"><rect class="sh" x="320" y="274" width="220" height="86"/><text x="430" y="299">task-maps</text><text class="sub" x="430" y="326">책임 설계 + 원본 + HTML</text><text class="sub" x="430" y="347">두 지도와 변경 근거</text></g>
-<g class="ve-n"><rect class="sh" x="600" y="274" width="220" height="86"/><text x="710" y="299">tdd · 기존 스킬</text><text class="sub" x="710" y="326">실제 실패 → 최소 구현</text><text class="sub" x="710" y="347">변경 코드와 통과 근거</text></g>
-<g class="ve-n"><rect class="sh" x="880" y="274" width="240" height="86"/><text x="1000" y="299">task-evidence</text><text class="sub" x="1000" y="326">인계 / E2E / 자기 설명 기록</text><text class="sub" x="1000" y="347">근거·판정·복습 지점</text></g>
+<path class="ve-e" d="M110 128V274"/><text class="ve-el l" x="100" y="203">요청</text><path class="ve-e" d="M154 274V128"/><text class="ve-el r" x="164" y="203">반환</text>
+<path class="ve-e" d="M335 128V274"/><text class="ve-el l" x="325" y="203">요청</text><path class="ve-e" d="M379 274V128"/><text class="ve-el r" x="389" y="203">반환</text>
+<path class="ve-e" d="M560 128V274"/><text class="ve-el l" x="550" y="203">요청</text><path class="ve-e" d="M604 274V128"/><text class="ve-el r" x="614" y="203">반환</text>
+<path class="ve-e" d="M785 128V274"/><text class="ve-el l" x="775" y="203">요청</text><path class="ve-e" d="M829 274V128"/><text class="ve-el r" x="839" y="203">반환</text>
+<path class="ve-e" d="M1010 128V274"/><text class="ve-el l" x="1000" y="203">요청</text><path class="ve-e" d="M1054 274V128"/><text class="ve-el r" x="1064" y="203">반환</text>
+<g class="ve-n is-key"><rect class="sh" x="40" y="62" width="1080" height="66"/><text x="580" y="84">task-delivery · 기술 선택 대화부터 검증·설명 후 다음 단계까지 관리한다</text><text class="sub" x="580" y="110">순서와 작업 상태의 관리 주체</text></g>
+<g class="ve-n"><rect class="sh" x="30" y="274" width="204" height="86"/><text x="132" y="299">task-design-dialogue</text><text class="sub" x="132" y="326">사용자·AI 설계 문답</text><text class="sub" x="132" y="347">결정 · 가정 · 영향</text></g>
+<g class="ve-n"><rect class="sh" x="255" y="274" width="204" height="86"/><text x="357" y="299">task-maps</text><text class="sub" x="357" y="326">책임 설계 + 원본 + HTML</text><text class="sub" x="357" y="347">두 지도와 변경 근거</text></g>
+<g class="ve-n"><rect class="sh" x="480" y="274" width="204" height="86"/><text x="582" y="299">tdd · 기존 스킬</text><text class="sub" x="582" y="326">실제 실패 → 최소 구현</text><text class="sub" x="582" y="347">변경 코드와 통과 근거</text></g>
+<g class="ve-n"><rect class="sh" x="705" y="274" width="204" height="86"/><text x="807" y="299">task-evidence</text><text class="sub" x="807" y="326">인계 / E2E / 자기 설명</text><text class="sub" x="807" y="347">근거 · 판정</text></g>
+<g class="ve-n"><rect class="sh" x="930" y="274" width="204" height="86"/><text x="1032" y="299">task-review</text><text class="sub" x="1032" y="326">누적 복습 / 인터뷰 준비</text><text class="sub" x="1032" y="347">review.md 갱신</text></g>
 </svg></div>
-<figcaption><span class="fig-n">Fig. 5</span> <strong>상위 흐름이 설계 문답·지도·TDD·검증 근거를 조합한다.</strong> 기능 분해에는 to-tickets 기준을 참고한다.</figcaption>
+<figcaption><span class="fig-n">Fig. 5</span> <strong>상위 흐름이 설계 문답·지도·TDD·검증 근거·누적 복습을 조합한다.</strong> 기능 분해에는 to-tickets 기준을 참고한다.</figcaption>
 </figure>
-<div class="skill-links"><a href="../skills/task-delivery/SKILL.md">상위 스킬 읽기 ↗</a><a href="../skills/task-design-dialogue/SKILL.md">설계 문답 도구 읽기 ↗</a><a href="../skills/task-maps/SKILL.md">지도 도구 읽기 ↗</a><a href="../skills/task-evidence/SKILL.md">근거 도구 읽기 ↗</a><a href="../skills/contracts/components.md">공개 스킬·호출 관계 ↗</a></div>
+<div class="skill-links"><a href="../skills/task-delivery/SKILL.md">상위 스킬 읽기 ↗</a><a href="../skills/task-design-dialogue/SKILL.md">설계 문답 도구 읽기 ↗</a><a href="../skills/task-maps/SKILL.md">지도 도구 읽기 ↗</a><a href="../skills/task-evidence/SKILL.md">근거 도구 읽기 ↗</a><a href="../skills/task-review/SKILL.md">복습 도구 읽기 ↗</a><a href="../skills/contracts/components.md">공개 스킬·호출 관계 ↗</a></div>
 <figure class="subfigure">
 <h3>task-maps 안에서도 기존 스킬을 조합한다.</h3>
 <div class="frame"><svg class="ve-svg" viewBox="0 0 1160 370" role="img" aria-label="task-maps는 책임 설계가 필요하면 codebase-design을 참고한다. mermaid-diagrams로 두 지도의 원본을 작성하고 visual-explainer로 사람이 읽는 HTML을 만든다. 같은 노드 ID와 지도 버전을 유지한다.">
@@ -304,7 +306,7 @@ section{margin-top:var(--s-7)}
 </svg>
 <p class="route-copy" id="learning-copy" aria-live="polite">아직 설명이 없으면 <strong>pending</strong>으로 기다린다. 기능 검증 완료를 네 이해의 증거로 바꾸지 않는다.</p>
 </div>
-<figcaption><span class="fig-n">Fig. 7</span> <strong>기능의 verified와 이해 상태를 따로 기록한다.</strong> 막힌 부분은 review.md에도 연결해 개발 후 인터뷰 연습에 쓴다.</figcaption>
+<figcaption><span class="fig-n">Fig. 7</span> <strong>기능의 verified와 이해 상태를 따로 기록한다.</strong> task-evidence가 실제 설명을 기록하면 task-review가 막힌 부분을 review.md에 연결해 개발 후 인터뷰 연습에 쓴다.</figcaption>
 </figure>
 <figure class="subfigure">
 <h3>문서·검증·설명도 180분 안에 포함한다.</h3>
@@ -361,7 +363,7 @@ section{margin-top:var(--s-7)}
 <p><strong>워크플로우부터, 기능은 조합</strong> · <a href="https://github.com/fivetaku/gptaku_plugins">GPTaku</a><br>사용자가 선택한 두 레이어 관점을 이 작업 방식에 적용했다.</p>
 <p><strong>고정 원문과 검증</strong> · <a href="../THIRD_PARTY.md">출처·버전·라이선스</a> · <a href="validation.md">검증 범위</a><br>스킬 원문과 공통 계약을 함께 유지한다.</p>
 </div>
-<p class="note">스킬 v1.3 · 공유 계약 v1. ROOM-TS-1의 기능 검증은 완료됐지만 3시간 적합성과 새 결정 대화 방식은 아직 측정하지 않았다.</p>
+<p class="note">공유 계약 v1. ROOM-TS-1의 기능 검증은 완료됐지만 3시간 적합성과 새 결정 대화 방식은 아직 측정하지 않았다.</p>
 </footer>
 </main>
 </div>
@@ -446,7 +448,7 @@ const steps=[
     ],
     "output": [
       "갱신 지도 · 실제 선택 근거",
-      "review.md · E2E 준비 상태"
+      "handoff · E2E 준비 상태"
     ],
     "human": "계획과 실제 코드의 차이, 함께 실행할 E2E 경로를 한 화면에서 확인한다.",
     "caution": "인계 때 실제 코드·Red/Green 근거를 연결한다. 구조·결정이 달라졌다면 변경 사실과 이유를 드러낸다.",
@@ -471,8 +473,8 @@ const steps=[
   },
   {
     "title": "자기 설명·복습 기록",
-    "skill": "task-evidence",
-    "mode": "learning-review → review",
+    "skill": "task-evidence → task-review",
+    "mode": "learning-review → 누적 review.md",
     "kind": "도구층 · 이해 기록 반환",
     "input": [
       "현재 코드 · 지도 · 결정 이유",
@@ -484,7 +486,7 @@ const steps=[
     ],
     "human": "60~90초 정도 입력부터 결과까지의 흐름과 핵심 선택 이유를 네 말로 설명한다.",
     "caution": "막힘은 revisit으로 남기고 진행할 수 있다. 명시적 보류는 deferred, 미응답은 pending이다.",
-    "source": "../skills/task-evidence/SKILL.md"
+    "source": "../skills/task-review/SKILL.md"
   },
   {
     "title": "다음 작업 결정",

@@ -10,7 +10,7 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OWN = ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "contracts")
+OWN = ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "task-review", "contracts")
 
 
 def check_upstream():
@@ -54,7 +54,7 @@ def check_package():
         content = path.read_text()
         assert not re.search(r"/(?:Users|home)/[^/\s]+/|file:///|[A-Z]:\\Users\\", content), f"Host-specific path: {path.relative_to(ROOT)}"
         check_links(path)
-    for name in OWN[:4]:
+    for name in OWN[:-1]:
         content = (ROOT / "skills" / name / "SKILL.md").read_text()
         assert content.startswith("---\n"), name
         frontmatter = content.split("---", 2)[1]
@@ -64,9 +64,10 @@ def check_package():
     for name in json.loads((ROOT / "dependencies.lock.json").read_text())["dependencies"]:
         assert (components.parent / ".." / name["name"] / "SKILL.md").is_file()
     assert (ROOT / "skills/task-delivery/assets/task.md").is_file()
+    assert (ROOT / "skills/task-review/assets/review.md").is_file()
     assert (ROOT / "skills/visual-explainer/kit/render.mjs").is_file()
     pinned = len(json.loads((ROOT / "dependencies.lock.json").read_text())["dependencies"])
-    print(f"OK: 4 authored skills, {pinned} pinned dependencies, {count} upstream file hashes, portable authored references")
+    print(f"OK: {len(OWN) - 1} authored skills, {pinned} pinned dependencies, {count} upstream file hashes, portable authored references")
 
 
 if __name__ == "__main__":
