@@ -1,87 +1,36 @@
 # Task Workflow Skills
 
-과제 MD를 **티켓 분해와 기술적 갈림길 식별 → 핵심 결정 대화 → 전체 구현 MD·공유 지도 → TDD → 공동 E2E**로 진행하는 에이전트 스킬 묶음입니다. 3시간 해커톤·시험 대비에서는 기능별 짧은 자기 설명과 복습 기록을 연결합니다.
+## 무엇을 하는가
 
-먼저 원문·기존 코드에서 확인할 사실을 조사해 작업과 중요한 선택지의 초안을 보여줍니다. 사용자와 현재 구현을 바꾸는 결정을 논의하고, 미확인 가정은 영향·확인 시점·적용 위치를 적어 둡니다. 초안을 보고 결정하는 순서는 [GPTaku show-me-the-prd](https://github.com/fivetaku/show-me-the-prd)의 방식을 과제 MD 중심으로 조정한 것입니다.
+과제 MD를 작은 기능으로 나누고, 중요한 기술 선택은 사용자와 논의합니다. 에이전트가 현재 기능을 TDD로 구현하는 동안 사용자는 객체·흐름 HTML 지도로 맥락을 확인합니다. 함께 E2E로 실제 동작을 검증하고, 해커톤 모드에서는 사용자가 선택 이유를 짧게 설명한 뒤 다음 기능으로 갑니다.
 
-`task-delivery`가 진행을 관리하고 `task-design-dialogue`가 사용자와 설계를 문답하며, `task-maps`와 `task-evidence`가 지도와 검증 근거를 만듭니다. 에이전트가 읽고 수행하는 절차이며, 별도 서버나 자동 실행 엔진은 없습니다.
+산출물은 `.workflow/<과제명>/` 아래에 둡니다. 결정과 작업 순서는 `plan.md`, 현재 기능은 `tasks/T01.md`, 읽을 지도는 `maps/view.html`, 실행 근거는 `evidence/T01/`에 남습니다.
 
 ## 포함한 스킬
 
-| 구분 | 스킬 | 역할 |
+| 레이어 | 스킬 | 역할 |
 |---|---|---|
-| 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 핵심 결정·전체 계획·분해·현재 과제·검증/설명 후 다음 과제 |
-| 도구 | [task-design-dialogue](skills/task-design-dialogue/SKILL.md) | 중요한 기술 선택을 사용자와 질문·반론·수정안으로 다듬고 결정 기록 |
-| 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체·흐름 지도와 결정 ID가 연결된 HTML 생성·갱신 |
-| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | handoff·joint-e2e 근거, learning-review 이해 기록 |
-| 공개 기능 | to-tickets · tdd · codebase-design | 작은 기능 분해 기준·TDD·책임과 경계 설계 |
-| 공개 기능 | mermaid-diagrams · visual-explainer | 지도 원본과 사용자용 HTML |
+| 자동화 | [task-delivery](skills/task-delivery/SKILL.md) | 전체 순서·현재 작업·검증 후 다음 작업 관리 |
+| 도구 | [task-design-dialogue](skills/task-design-dialogue/SKILL.md) | 기술 선택 문답과 결정·가정 기록 |
+| 도구 | [task-maps](skills/task-maps/SKILL.md) | 객체·흐름 지도와 HTML 생성·갱신 |
+| 도구 | [task-evidence](skills/task-evidence/SKILL.md) | 구현 인계·공동 E2E·설명 근거 정리 |
 
-공개 스킬 5개는 **고정 커밋의 전체 스킬 폴더와 라이선스**를 함께 넣었습니다. 원문과 버전은 [THIRD_PARTY.md](THIRD_PARTY.md), 파일별 SHA-256은 [dependencies.lock.json](dependencies.lock.json)에 있습니다. `to-tickets`는 분해 기준을 참고하며 원본의 외부 이슈 게시 절차를 자동 실행하지 않습니다.
+공개 스킬 5개도 묶었습니다: `to-tickets`(기능 분해), `tdd`(테스트 후 구현), `codebase-design`(책임 설계), `mermaid-diagrams`(지도 원본), `visual-explainer`(HTML). 출처와 라이선스는 [THIRD_PARTY.md](THIRD_PARTY.md)에 있습니다.
 
-## 다른 프로젝트에 가져가기
+## 어떻게 쓰는가
 
-Python 3.10 이상이 필요합니다. 문서·스킬 설치에는 추가 Python 패키지나 네트워크가 필요하지 않습니다.
+Python 3.10 이상에서 스킬 묶음을 설치합니다. `my-project`는 사용할 프로젝트 경로로 바꿉니다.
 
 ```bash
 git clone https://github.com/kochungcheon/task-workflow-skills.git
 cd task-workflow-skills
-python3 scripts/check.py
 python3 scripts/install.py --target ../my-project/.agents/skills
 ```
 
-`my-project`를 사용할 프로젝트 위치로 바꿉니다. 대상 도구가 다른 스킬 폴더를 사용하면 `--target`에 그 폴더를 지정합니다. 예를 들어 개인 Codex 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사용할 수 있습니다. 기존 스킬이 다른 내용이면 설치를 중단하며 덮어쓰지 않습니다. 같은 내용으로 다시 실행하면 그대로 재사용합니다.
+Codex 개인 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사용합니다. 프로젝트 AGENTS.md에서 연결하려면 [AGENTS.snippet.md](AGENTS.snippet.md)를 참고합니다. HTML 지도를 만들 때는 Node.js 20 이상과 Chrome/Chromium을 준비하고 `npm ci --prefix ../my-project/.agents/skills/visual-explainer`를 한 번 실행합니다.
 
-설치기는 스킬 9개와 공통 `contracts` 폴더를 함께 복사합니다. **SKILL.md 하나만 복사하면 공통 계약·참조 파일을 잃습니다.** 개별 스킬만 내려받는 일반 설치기 대신 위 패키지 설치 명령을 사용하세요. 설치 후 도구의 스킬 목록을 다시 불러오거나 새 세션에서 시작합니다.
+과제 MD 경로와 함께 다음처럼 요청합니다.
 
-프로젝트에서 직접 읽게 하려면 [AGENTS.snippet.md](AGENTS.snippet.md)의 짧은 연결 문구를 기존 AGENTS.md에 추가할 수 있습니다. 설치기는 기존 프로젝트 지침을 수정하지 않습니다.
+> 이 과제를 3시간 해커톤용 `task-delivery`로 진행하자. 티켓과 중요한 기술 선택의 초안을 먼저 보여줘. 결정 후 현재 작업 MD와 지도를 만들고 TDD로 구현해줘. 내가 지도를 읽고 함께 E2E를 확인한 다음, 설명하고 다음 기능으로 가자.
 
-### HTML 지도 렌더링
-
-HTML을 만들고 검증할 때는 Node.js 20 이상과 Chrome/Chromium, Playwright Core가 필요합니다. 브라우저는 운영 환경에서 준비하고 다음 명령으로 고정된 Node 의존성을 설치합니다.
-
-```bash
-npm ci --prefix ../my-project/.agents/skills/visual-explainer
-node ../my-project/.agents/skills/visual-explainer/kit/render.mjs path/to/map.src.html
-```
-
-스킬 문서에서 렌더러 위치는 **실제로 읽은 visual-explainer 폴더**를 기준으로 정합니다. 영상·슬라이드·MCP 확장은 해당 원문의 별도 의존성을 따르며 이 워크플로우의 필수 기능은 아닙니다.
-
-## 시작 문장
-
-> 이 과제 MD를 3시간 해커톤용 task-delivery로 진행하자. 티켓과 설계 갈림길의 초안을 먼저 보여주고, 중요한 선택은 나와 질문·반론을 주고받으며 정해줘. 결정과 남은 가정을 객체 지도와 HTML에 연결해줘. 현재 작업 MD와 지도를 읽는 동안 구현하고, TDD와 공동 E2E 뒤 내가 짧게 설명하고 다음 기능으로 가자.
-
-기본 수행자는 현재 에이전트입니다. 별도 에이전트 위임은 요청했을 때 사용합니다. 이미 합의한 범위·검증 지점은 재사용합니다.
-
-`awaiting_joint_e2e`는 **구현 완료·공동 검증 대기**입니다. 현재 코드의 필수 E2E 통과와 사용자 결과 확인이 있어야 `verified`가 됩니다. 실패하면 같은 과제를 수정합니다.
-
-## 3시간 동안 읽을 문서와 설명
-
-- `plan.md`: 전체 구현 방향·요구 연결·기술적 선택과 대안·판단 근거·남은 가정·작업 순서·복습 색인.
-- `tasks/T01.md`: 현재 기능의 범위·동작 경로·실패 조건·검증 근거·실제 사용자 설명. 공통 결정과 반영된 가정은 계획의 ID로 참조합니다.
-- `maps/view.html`: 사용자가 계속 읽는 한 화면. 전체 흐름의 현재 위치와 중요한 결정의 상태·이유·대안·관련 객체 노드, 해당 기능의 검증·복습 표시를 연결합니다.
-
-문서 갱신은 에이전트가 맡습니다. 전체 순서부터 잡고 현재 기능을 상세화합니다. 15분 분석/결정/분해, 145분 기능 반복, 20분 전체 실행/제출 점검은 환경·문서 작성도 포함하는 조정 가능한 운영안입니다.
-
-구현량이 많을 때에도 별도 PRD·intent 문서나 단계별 평가표를 필수로 만들지 않습니다. 기존 `plan.md`에서 중요한 전제·결정을 확인하고, 현재 기능의 지도·검증 근거를 갱신합니다.
-
-공동 E2E 뒤 60~90초 정도 동작 흐름과 선택 이유를 사용자 말로 확인합니다. `verified`와 `learning_status`는 별개입니다. 막힘은 `revisit`으로 남기고 진행할 수 있으며, 명시적 보류는 `deferred`, 미응답은 `pending`입니다. 정확한 대기·재개 조건은 [해커톤 절차](skills/task-delivery/references/hackathon.md)를 따릅니다. 일반 개발 모드는 자기 설명 단계를 요구하지 않습니다.
-
-## 경로와 버전 관리
-
-- 패키지 내부 참조는 문서 위치 기준 상대 경로입니다. 특정 사용자의 절대 경로를 저장하지 않습니다.
-- 의존 스킬은 같은 상위 폴더에 설치합니다. 없으면 현재 환경의 스킬 목록에서 이름으로 찾습니다.
-- 공식 GitHub URL은 출처와 업데이트 기준입니다. 실행 중 매번 최신 원문을 내려받는 방식은 사용하지 않습니다.
-- 업데이트할 때 고정 커밋·해시·라이선스와 호출 계약을 함께 확인합니다. 버전이 새롭다는 이유만으로 호환된다고 판단하지 않습니다.
-
-## 자료와 검증
-
-- [설계 이유](docs/workflow-design.md) · [HTML 설명 원본](docs/workflow.src.html) · [완성 HTML 다운로드](https://raw.githubusercontent.com/kochungcheon/task-workflow-skills/main/docs/workflow.html)
-- [확인한 범위와 결과](docs/validation.md)
-- [공유 계약](skills/contracts/task-workflow-v1.md) · [호출 관계와 공식 원문](skills/contracts/components.md) · [전체 구현 양식](skills/task-delivery/assets/plan.md) · [과제 양식](skills/task-delivery/assets/task.md)
-- `python3 scripts/check.py`: 원문 해시·필수 자원·내부 링크·개인 절대 경로 점검
-- `python3 -m unittest discover -s tests -v`: 설치·경로 이동·재실행·충돌 보존 검사
-
-ROOM-TS-1 시범 과제에서 기능별 검증은 수행했으나 실제 3시간 소요와 사후 설명 효과는 측정하지 못했습니다. 이번 결정 대화·지도 표시 변경의 실제 사용도 다음 과제에서 확인해야 합니다. 전체 작업 후 별도 6문항 연습의 자동 출제나 프롬프트 자동 채점은 포함하지 않습니다.
-
-작성한 스킬·설치 도구는 [MIT](LICENSE), 공개 스킬은 각각 동봉된 원저자의 MIT 라이선스를 따릅니다.
+`$task-delivery <과제 MD 경로>`로 시작해도 됩니다. 설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 인계·검증 근거만 필요하면 `task-evidence`를 요청합니다. 구현 보고 뒤에는 공동 E2E로 결과를 확인하고 같은 작업을 마친 다음 다음 작업으로 진행합니다.
