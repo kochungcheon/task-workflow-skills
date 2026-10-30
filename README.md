@@ -32,8 +32,4 @@ python3 scripts/install.py --target ../my-project/.agents/skills
 
 Codex 개인 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사용합니다. 프로젝트 AGENTS.md에서 연결하려면 [AGENTS.snippet.md](AGENTS.snippet.md)를 참고합니다. HTML 지도를 만들 때는 Node.js 20 이상과 Chrome/Chromium을 준비하고 `npm ci --prefix ../my-project/.agents/skills/visual-explainer`를 한 번 실행합니다.
 
-과제 MD 경로와 함께 다음처럼 요청합니다.
-
-> 이 과제를 3시간 해커톤용 `task-delivery`로 진행하자. 독립적인 사실 조사는 병렬로 하고 하나의 티켓·기술 선택 초안으로 합쳐줘. 결정 후 현재 작업 MD·지도·누적 복습 문서를 만들고, 현재 작업 하나만 TDD로 구현해줘. 나는 구현 중 지도와 복습 문서를 읽고, 함께 E2E를 확인한 다음 설명하고 다음 기능으로 갈게. 끝나면 중요한 기술 선택과 검증을 바탕으로 인터뷰 답변을 연습하자. 병렬로 해도 될지 애매하면 순차로 진행해줘.
-
-`$task-delivery <과제 MD 경로>`로 시작해도 됩니다. 설계 대화만 필요하면 `task-design-dialogue`, 지도만 필요하면 `task-maps`, 인계·공동 검증만 필요하면 `task-evidence`, 지금까지의 복습 문서만 필요하면 `$task-review <과제 작업 경로>`를 요청합니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다. 구현 보고 뒤에는 공동 E2E로 결과를 확인하고 같은 작업을 마친 다음 다음 작업으로 진행합니다.
+과제 MD 경로와 함께 `$task-delivery ./requirements.md`로 시작합니다. 해커톤 시작·설계만 논의·지도 갱신·구현 재개·공동 E2E·전체 리뷰까지 복사해 쓸 문장은 **[워크플로우 사용 예제](docs/usage-examples.md)**에 모았습니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다.
