@@ -61,6 +61,21 @@
       }
     },
     {
+      "name": "simple-english",
+      "repository": "https://github.com/AminBlg/SimpleEnglish",
+      "commit": "a6fcb4fde098b33617cc1578d151ebf58774b883",
+      "path": "skills/simple-english",
+      "license": "MIT",
+      "upstream_files": {
+        "SKILL.md": "2f25072b7edd707d525d597b388f473b46baad100a3232e13f60e30b0fcc4a82",
+        "references/use-cases.md": "ac0e7129107693a45f641c1285ba33d996d4567495c6b009b9020cb8e7968229",
+        "references/word-swaps.md": "4a0056cbc9e5faf2132a2b172ac82f684d30fbf8c0914e86f966666a116ab55f",
+        "references/rule-catalog.md": "49175a0614ffe23fd7e9889964015cbd1126be52f19363288e665b6be41d1213",
+        "references/strict-vocabulary.md": "3f34ef3a878d9dc83de68191b5ddd6220fdb4e3c99eafc89425adfabd46258a7",
+        "LICENSE": "10b2f9435643bae609e4c1a7690131b2aeb6941e9d867e934bc80619935a6f8f"
+      }
+    },
+    {
       "name": "visual-explainer",
       "repository": "https://github.com/nicobailon/visual-explainer",
       "commit": "5f378868e0ea745a6284b51e710c390f0c76f72c",

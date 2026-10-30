@@ -27,8 +27,10 @@ class InstallTest(unittest.TestCase):
         shutil.move(self.target, moved)
         contract = moved / "task-delivery" / "../contracts/task-workflow-v1.md"
         self.assertTrue(contract.is_file())
-        for name in ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer"):
+        for name in ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer", "simple-english"):
             self.assertTrue((moved / name / "SKILL.md").is_file(), name)
+        self.assertTrue((moved / "simple-english/references/use-cases.md").is_file())
+        self.assertTrue((moved / "simple-english/LICENSE").is_file())
         self.assertTrue((moved / "tdd/tests.md").is_file())
         self.assertTrue((moved / "visual-explainer/kit/render.mjs").is_file())
         self.assertTrue((moved / "visual-explainer/package-lock.json").is_file())

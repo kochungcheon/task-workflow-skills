@@ -15,6 +15,7 @@
 | 책임 설계 · codebase-design | task-maps, tdd의 경계 설계 | 코드·도메인 용어 → 책임/공개 인터페이스 판단 | 결정이 필요한 경계를 표시 |
 | 원본 지도 · mermaid-diagrams | task-maps | 노드·관계 → 객체/흐름 .mmd | 문법·누락 관계 수정 |
 | 사람이 보는 지도 · visual-explainer | task-maps | 같은 노드·관계·버전 → 검증한 HTML | 렌더 검사 실패 수정, 미확인 범위 표시 |
+| 기술 문서 문장 · simple-english/한국어 어댑터 | task-delivery, task-design-dialogue, task-maps, task-evidence | 계획·작업·HTML·인계의 설명 문장 → 한 번에 읽히는 문장 | 언어에 맞는 규칙을 골라 사실·코드·근거를 보존 |
 
 `task-delivery`만 순서·재시도·멈춤·재개를 결정한다. 공개 기능은 아래 어댑터를 통해 공통 계약에 맞춘다. 파일을 읽어 에이전트가 수행하는 조합이며 함수 호출 API가 아니다.
 
@@ -31,6 +32,10 @@
 ## tdd 어댑터
 
 현재 과제 하나와 합의한 검증 인터페이스를 전달한다. 해커톤 모드에서 서브 에이전트가 가능하면 TDD 구현을 위임하고, 호출자는 계획·지도·상태·사용자 소통과 결과 검토를 유지한다. 수행자는 테스트 하나의 실제 Red→최소 구현→Green을 반복하고 코드·실행 근거·막힌 결정을 반환한다. 공개 `implement`·`implement-spec`의 커밋/전체 실행 정책은 이 기능에 포함되지 않는다. 다음 과제와 공동 E2E의 판단은 호출자가 한다.
+
+## simple-english 문서 어댑터
+
+영어 기술 문서를 쓸 때 `simple-english`를 읽고 원문의 문서 규칙을 적용한다. 한국어 계획·작업·지도 HTML·인계에는 다음 한국어 규칙을 적용한다: 결론이나 관찰 결과를 먼저 쓰고, 한 문장에 한 동작·사실을 담으며, 조건과 행위자를 드러낸다. `계획`, `구현`, `검증 완료`, `대기`를 구분하고 각각의 코드·실행 근거를 연결한다. 영어 단어 수·어휘·시제 규칙을 한국어에 적용하거나 한국어 문서를 영어로 번역하지 않는다. 코드·명령·식별값·인용·검증 결과는 문체를 위해 바꾸지 않는다. 원문의 영어 채팅 답변 형식도 한국어 대화에 강제하지 않는다. 문서가 바뀌는 시점에 짧게 점검하며 별도 문서 정리 단계를 추가하지 않는다.
 
 ## 공식 원문과 경로 해석
 
@@ -49,8 +54,9 @@
 | codebase-design | `../codebase-design/SKILL.md` | [Matt · codebase-design](https://github.com/mattpocock/skills/blob/59db609eb1e18aaf59b63284d0e52255aff0c63c/skills/engineering/codebase-design/SKILL.md) |
 | mermaid-diagrams | `../mermaid-diagrams/SKILL.md` | [agent-toolkit](https://github.com/softaworks/agent-toolkit/blob/3027f20f3181758385a1bb8c022d4041dfb4de84/skills/mermaid-diagrams/SKILL.md) |
 | visual-explainer | `../visual-explainer/SKILL.md` | [visual-explainer](https://github.com/nicobailon/visual-explainer/blob/5f378868e0ea745a6284b51e710c390f0c76f72c/plugins/visual-explainer/SKILL.md) |
+| simple-english | `../simple-english/SKILL.md` | [AminBlg · SimpleEnglish](https://github.com/AminBlg/SimpleEnglish/blob/a6fcb4fde098b33617cc1578d151ebf58774b883/skills/simple-english/SKILL.md) |
 
-E2E 실행은 프로젝트 기존 명령과 허용 도구를 우선한다. gstack `qa-only`·Anthropic `webapp-testing`은 과제와 환경이 맞을 때 선택할 후보이며 이 패키지의 필수 의존성이 아니다. 이 패키지는 위 고정 버전의 스킬 폴더와 라이선스를 함께 제공한다. 설치된 상대 경로만으로 참조를 해결할 수 있다.
+E2E 실행은 프로젝트 기존 명령과 허용 도구를 우선한다. gstack `qa-only`·Anthropic `webapp-testing`은 과제와 환경이 맞을 때 선택할 후보이며 이 패키지의 필수 의존성이 아니다. 이 패키지는 위 고정 버전의 스킬 폴더와 라이선스를 함께 제공한다. 설치된 상대 경로만으로 참조를 해결할 수 있다. `simple-english`의 Claude·Codex 플러그인 훅과 출력 스타일은 묶지 않는다. 문서 작성 스킬만 설치한다.
 
 ## 기능을 바꿀 때
 

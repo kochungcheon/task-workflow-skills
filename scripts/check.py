@@ -65,7 +65,8 @@ def check_package():
         assert (components.parent / ".." / name["name"] / "SKILL.md").is_file()
     assert (ROOT / "skills/task-delivery/assets/task.md").is_file()
     assert (ROOT / "skills/visual-explainer/kit/render.mjs").is_file()
-    print(f"OK: 4 authored skills, 5 pinned dependencies, {count} upstream file hashes, portable authored references")
+    pinned = len(json.loads((ROOT / "dependencies.lock.json").read_text())["dependencies"])
+    print(f"OK: 4 authored skills, {pinned} pinned dependencies, {count} upstream file hashes, portable authored references")
 
 
 if __name__ == "__main__":
