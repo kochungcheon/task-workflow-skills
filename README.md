@@ -33,3 +33,5 @@ python3 scripts/install.py --target ../my-project/.agents/skills
 Codex 개인 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사용합니다. 프로젝트 AGENTS.md에서 연결하려면 [AGENTS.snippet.md](AGENTS.snippet.md)를 참고합니다. HTML 지도를 만들 때는 Node.js 20 이상과 Chrome/Chromium을 준비하고 `npm ci --prefix ../my-project/.agents/skills/visual-explainer`를 한 번 실행합니다.
 
 과제 MD 경로와 함께 `$task-delivery ./requirements.md`로 시작합니다. 해커톤 시작·설계만 논의·지도 갱신·구현 재개·공동 E2E·전체 리뷰까지 복사해 쓸 문장은 **[워크플로우 사용 예제](docs/usage-examples.md)**에 모았습니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다.
+
+서버에 Chrome/Chromium이 없으면 [서버 미리보기 절차](skills/contracts/server-preview.md)를 사용합니다. 완성 HTML을 생성해 미리보기 서버로 제공하고, HTTP 응답·사용자 화면 확인·앱 기능 E2E를 따로 기록합니다.

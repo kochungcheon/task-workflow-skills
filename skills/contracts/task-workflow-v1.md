@@ -39,6 +39,8 @@
 - 지도 원본과 HTML은 같은 map_revision을 표시한다. 노드·간선·책임·실행 경로 변경 시 버전을 올리고 현재 과제의 포인터를 갱신한다. HTML만의 배치 변경은 구조 버전을 올릴 필요가 없다.
 - 결정 설명·구현 근거·학습 표시만 바뀌고 노드/간선이 동일하면 `plan_revision`과 코드 근거를 맞춰 HTML·색인을 갱신하되 구조의 `map_revision`은 유지할 수 있다.
 - 구조가 구현되어도 과제는 아직 E2E 대기일 수 있다. `계획/구현`은 구조 상태, `현재/검증 완료/후속`은 과제 진행 상태다.
+- `maps/index.md` 또는 연결된 인계 기록에 미리보기 서버의 실행 명령·제공 디렉터리·포트·재사용 여부와 `preview_internal_url`, `preview_user_url`을 기록한다. 앱·E2E 대상은 별도의 `app_internal_url`, `app_user_url`로 기록한다. 미확인 URL은 미확인으로 둔다. [서버 미리보기 절차](server-preview.md)를 따른다.
+- HTML 생성·자산 확인, HTTP 응답, 자동 브라우저 검사, 사용자 화면 확인은 각각 결과·수행자·근거를 기록한다. HTTP `200`은 화면 확인이나 기능 E2E의 통과 근거가 아니다. 브라우저 부재 시 화면 확인은 `pending`으로 두고 지도 생성 자체가 성공했다면 기능 구현 진행을 막지 않는다.
 
 ## Evidence
 
@@ -46,7 +48,7 @@
 
 handoff에는 실제 Red/Green 근거·관련 회귀·지도 차이·공동 E2E 시나리오가 필요하다. `verdict`는 `ready_for_joint_e2e | needs_work | blocked`다.
 
-joint-e2e에는 실행 환경, 실제 진입점부터 관찰 결과까지의 범위, 외부 경계 대체 여부, 수행자와 `human_confirmation`이 필요하다. `verdict`는 `pass | fail | partial | blocked`다. `human_confirmation`은 `pending` 또는 현재 시도·결과에 대한 사용자의 확인 발언/대화 참조다.
+joint-e2e에는 실행 환경, 실제 진입점부터 관찰 결과까지의 범위, 외부 경계 대체 여부, 시나리오별 검사 종류(`manual_user | automated_browser | api_cli` 등)·수행자·결과와 `human_confirmation`이 필요하다. 수동 사용자 E2E와 자동 브라우저 E2E는 별도 시도로 기록하며 서로의 통과를 대체하지 않는다. `verdict`는 `pass | fail | partial | blocked`다. `human_confirmation`은 `pending` 또는 현재 시도·결과에 대한 사용자의 확인 발언/대화 참조다.
 
 근거는 해당 code_ref와 기준 버전에만 유효하다. 이후 변경은 영향을 받는 검사를 다시 수행한다. 지도 표시만 수정했고 코드/기준이 그대로라면 변경 이유와 기존 근거를 연결할 수 있다. 정정은 덧붙여 남기고 이전 시도를 덮어쓰지 않는다.
 
