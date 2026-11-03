@@ -7,8 +7,10 @@
 | 기능 | 호출자 | 입력 → 출력 | 누락·실패 시 |
 |---|---|---|---|
 | 과제 분해 · to-tickets 기준 | task-delivery | 원문·합의한 전체 계획 → 기능 순서·의존관계, 현재 TaskPacket | 모호한 기준/순환 의존을 알려 현재 분해에서 해결 |
+| 고객 정책 확인 · task-customer-interview | task-delivery, 단독 고객 인터뷰 | 원문·코드·계획·현재 작업·기존 질문 → CustomerInterviewNote·요구/인수 기준 변경 요약 | 질문 대기·모호한 답·충돌을 반환하고 실제 작업 차단 여부는 호출자가 판단 |
 | 설계 대화 · task-design-dialogue | task-delivery, 단독 설계 대화 | 요구·코드·계획 초안 → 결정 ID·상태·가정·작업/지도 변경 요약 | 현재 구현을 바꾸는 미결정과 근거 부족을 드러내 대화를 이어감 |
 | 지도 · task-maps | task-delivery, 단독 지도 요청 | TaskPacket·코드·기존 지도 → MapSet | 원본·HTML 생성 불가나 정합성 실패는 blocked, 브라우저 부재 시 화면 확인은 pending |
+| 설계·코드 검토 · task-quality-review | task-delivery, 단독 품질 검토 | 현재 패키지·범위·변경 기준·코드 → QualityReview | 주요 지적은 needs_work, 수행 불가는 not_run으로 반환하고 호출자가 영향 범위의 진행을 판단 |
 | 구현 · tdd | task-delivery | 합의한 TaskPacket·MapSet → 변경 코드, 실제 Red/Green·회귀 근거 | 환경 오류/기능 실패/범위 변경을 구분해 반환 |
 | 근거 · task-evidence | task-delivery, 단독 인계/E2E 검토 | 현재 패키지·실행 기록 → handoff 또는 joint-e2e Evidence | 누락은 blocked/needs_work, 관찰 실패는 fail |
 | 자기 설명 기록 · task-evidence learning-review | 학습 모드의 task-delivery, 단독 설명 검토 | 현재 패키지·사용자 설명 → 과제의 LearningNote·복습 색인 | 설명 부재/버전 미확인은 pending, 남은 막힘은 revisit |
@@ -19,6 +21,18 @@
 | 기술 문서 문장 · simple-english/한국어 어댑터 | task-delivery, task-design-dialogue, task-maps, task-evidence | 계획·작업·HTML·인계의 설명 문장 → 한 번에 읽히는 문장 | 언어에 맞는 규칙을 골라 사실·코드·근거를 보존 |
 
 `task-delivery`만 순서·재시도·멈춤·재개를 결정한다. 공개 기능은 아래 어댑터를 통해 공통 계약에 맞춘다. 파일을 읽어 에이전트가 수행하는 조합이며 함수 호출 API가 아니다.
+
+## 고객 인터뷰 연결
+
+`task-delivery`는 초기 요구 분석, 현재 작업의 `ready` 판정 전, 구현·검증 중 정책의 빈틈이나 충돌에서 [task-customer-interview](../task-customer-interview/SKILL.md)를 호출한다. 질문·답변의 원본은 `plan.md`의 [CustomerInterviewNote](task-workflow-v1.md#customerinterviewnote--고객-정책-확인의-선택-확장)다. 작업 MD는 관련 질문·요구·인수 기준을 연결한다. 기본 대화 경로는 사용자가 고객 또는 고객봇에 질문을 전달하고 답변을 가져오는 방식이다.
+
+인터뷰 도구는 답변 근거와 변경안을 반환한다. `task-delivery`가 작업·지도·검증 경계를 갱신하고 대기·재개를 결정한다. 기술 선택은 `task-design-dialogue`, 실제 실행 근거는 `task-evidence`, 구현 뒤 자기 설명과 누적 복습은 `learning-review`·`task-review`로 연결한다. `task-maps`와 `task-review`는 질문 원본을 참조해 현재 기능의 미해결 정책과 적용된 답변을 요약한다.
+
+## 독립 설계·코드 리뷰 연결
+
+`task-delivery`는 현재 작업에 `quality_policy: review-v1`을 기록하고 [QualityReview](task-workflow-v1.md#qualityreview--설계코드-검토의-선택-확장)를 적용한다. `task-quality-review`의 `design`은 지도·현재 작업 초안 뒤 `ready` 전에, `code`는 구현·자동 검사 뒤 handoff 전에 호출한다. 설계 리뷰에는 이전 대화를 제외한 새 컨텍스트와 명시적인 문서·코드 읽기 목록을 사용한다. 현재 도구 스키마가 제공하는 `fork_turns: none` 또는 `fork_context: false`로 설정하고 실제 완료·읽기 근거를 확인한다.
+
+EGM의 작성자·독립 검토자 분리와 문서·코드 대조 관점을 현재 작업에 맞춰 작성한 도구다. 한국어 작업 MD와 고객 답변을 입력으로 사용하고, 중요한 선택과 실제 결함을 우선 검토한다. 계획된 후속 기능과 현재 구현 범위를 구분한다. 실행 검사·공동 E2E는 `task-evidence`, 누적 복습은 `task-review`가 각각 근거와 결과를 정리한다. 검토자는 읽기 전용이며, 지적의 처리·필요한 재검토·작업 전이는 호출자가 맡는다.
 
 ## visual-explainer 서버 미리보기 어댑터
 
@@ -52,7 +66,7 @@
 2. 함께 설치한 파일이 없으면 현재 환경의 스킬 목록에서 같은 이름의 스킬을 찾고 실제 SKILL.md 위치를 사용한다. 버전이나 동작이 다르면 차이를 먼저 확인한다.
 3. 사용할 수 있는 파일이 없으면 누락된 스킬과 공식 원문을 알린다. 설치는 사용자가 요청한 범위에서 수행한다. SKILL.md가 참조하는 파일·렌더 자원도 함께 필요하다.
 
-`task-delivery`, `task-design-dialogue`, `task-maps`, `task-evidence`, `task-review`, `contracts`는 같은 상위 폴더에 배치한다. 이동할 때 공통 계약과 참조 파일까지 포함한 패키지를 설치한다.
+`task-delivery`, `task-customer-interview`, `task-design-dialogue`, `task-maps`, `task-quality-review`, `task-evidence`, `task-review`, `contracts`는 같은 상위 폴더에 배치한다. 이동할 때 공통 계약과 참조 파일까지 포함한 패키지를 설치한다.
 
 | 스킬 | 패키지 내부 상대 경로 | 고정한 공식 원문 |
 |---|---|---|

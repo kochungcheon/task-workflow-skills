@@ -7,13 +7,15 @@ state: planned
 blocked_by: []
 map_revision: 미작성
 code_ref: 미확인
+quality_policy: review-v1
 
 ## 요구와 범위
 
 - 원문 위치:
 - 전체 구현 계획 경로·plan_revision:
-- 연결된 요구 ID·결정 ID:
+- 연결된 요구 ID·고객 질문 ID·결정 ID:
 - 이 작업에 반영된 가정 ID·상태·계획 위치: 해당 없으면 없음
+- 이 작업 전에 확인할 고객 정책·질문 상태·계획 위치: 해당 없으면 없음
 - 이 작업 전에 해결할 기술적 질문·현재 상태: 해당 없으면 없음
 - 입력부터 결과까지의 목표:
 - 이번에 포함하지 않는 범위:
@@ -36,6 +38,21 @@ code_ref: 미확인
 - 실제 E2E 진입점·환경·경로·기대 결과:
 - 필수 E2E 종류(사용자 수동·자동 브라우저·API/CLI)와 각각의 통과 기준:
 - 사용자 범위/검증 지점 합의 근거: 미확인
+
+## 설계·코드 리뷰와 구현 검사
+
+- 설계 리뷰 적용 여부·이유와 independence_required:
+- 구현 전 기준 커밋·기존 staged/unstaged/untracked 스냅샷 위치:
+- 코드 리뷰 change_basis(diff 또는 current_files)·대상 파일·관련 호출 경로:
+- 설계 리뷰 보고서·verdict·검토한 식별값:
+- 코드 리뷰 보고서·verdict·수행자·independent/self·검토한 식별값:
+- 주요 지적 ID·처리 이유·수정 뒤 재검토 근거:
+
+| check_id | 구현 검사 종류·명령 | required·이유 | result·실행 근거·code_ref |
+|---|---|---|---|
+| C01 | 프로젝트 명령·CI에서 확인 | | not_run |
+
+공유 계약의 QualityReview·ImplementationChecks를 따른다. 적용되는 lint·타입·빌드·단위/통합·회귀 검사를 정하고 실행 결과를 연결한다. 적용 제외는 이유를 남기고, 실제 실행한 검사만 통과로 기록한다.
 
 ## 수행과 증거
 

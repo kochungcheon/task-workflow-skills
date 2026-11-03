@@ -27,8 +27,10 @@ class InstallTest(unittest.TestCase):
         shutil.move(self.target, moved)
         contract = moved / "task-delivery" / "../contracts/task-workflow-v1.md"
         self.assertTrue(contract.is_file())
-        for name in ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "task-review", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer", "simple-english"):
+        for name in ("task-delivery", "task-customer-interview", "task-design-dialogue", "task-quality-review", "task-maps", "task-evidence", "task-review", "to-tickets", "tdd", "codebase-design", "mermaid-diagrams", "visual-explainer", "simple-english"):
             self.assertTrue((moved / name / "SKILL.md").is_file(), name)
+        interview_contract = moved / "task-customer-interview" / "../contracts/task-workflow-v1.md"
+        self.assertTrue(interview_contract.is_file())
         self.assertTrue((moved / "simple-english/references/use-cases.md").is_file())
         self.assertTrue((moved / "simple-english/LICENSE").is_file())
         self.assertTrue((moved / "tdd/tests.md").is_file())
@@ -58,6 +60,8 @@ class InstallTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(custom.read_text(), "user's custom skill")
         self.assertFalse((self.target / "task-delivery").exists())
+        self.assertFalse((self.target / "task-customer-interview").exists())
+        self.assertFalse((self.target / "task-quality-review").exists())
         self.assertFalse((self.target / "contracts").exists())
 
     def test_dry_run_has_no_writes(self):

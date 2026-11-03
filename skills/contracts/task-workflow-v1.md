@@ -27,6 +27,52 @@
 
 `plan_revision`은 계획·결정 변경 때 올린다. 작업 MD는 전체 계획 경로·참조 버전·관련 요구/결정 ID를 연결한다. 변경된 요구·결정의 영향을 받는 작업·지도·검증 기준을 갱신하고, 범위·검증 경계·선택 이유가 바뀐 작업의 `task_revision`도 올린다. 현재 작업만 완전한 TaskPacket으로 상세화하고 후속 작업 개요는 계획에 둔다. 기존 v1 과제에는 필요한 연결만 보완할 수 있으며 기존 Evidence·상태 전이의 필수 의미는 유지한다.
 
+## CustomerInterviewNote · 고객 정책 확인의 선택 확장
+
+고객의 업무·정책·예외를 확인할 때 `plan.md`에 추가하는 기록이다. [task-customer-interview](../task-customer-interview/SKILL.md)가 질문과 답변 근거를 정리하고, `task-delivery`가 작업·지도·검증 기준에 적용한다. 기존 v1 기록은 필요한 질문이 생길 때 이 항목을 추가한다. 기록이 없다는 사실만으로 과거 고객 확인을 추정하지 않는다.
+
+각 질문은 안정적인 `Q01` 같은 ID, 확인할 정책과 질문 이유, 관련 요구·작업·인수 기준, 응답자·출처·적용 범위, 실제 답변 또는 원문 참조, 에이전트 해석·반영할 변경, 상태·다음 확인 시점을 갖는다. 작업이 정해지기 전의 작업·인수 기준 ID는 미정으로 두고 분해할 때 연결한다. 기존 코드의 동작, 문서의 요구, 고객 답변, 정책 결정권자의 새 결정, 에이전트 제안을 구분한다. 연습용 가상 응답은 가상 예시로 표시한다.
+
+| 질문 상태 | 의미 |
+|---|---|
+| `open` | 질문 초안 또는 추가 확인이 필요한 항목. 실제 전달 근거는 아직 없음 |
+| `waiting` | 응답자에게 질문이 전달된 근거가 있고 답변 대기 중 |
+| `resolved` | 필요한 정책·조건이 출처와 함께 구체화됐고 요구·인수 기준의 반영 대상과 변경안이 연결됨 |
+| `deferred` | 후속 작업에서 확인할 항목. 영향과 해당 작업 착수 전 등 확인 시점이 기록됨 |
+| `conflict` | 출처·답변 간 충돌이 남아 두 근거와 확인할 주체가 기록됨 |
+
+답변 정정은 이전 답변·출처를 보존하고 같은 질문을 다시 열어 변경 이유를 덧붙인다. `task-delivery`는 요구·기대값이 달라지면 `plan_revision`과 영향받는 `task_revision`을 올리고 과제·지도·검증 지점을 맞춘다. 기존 통과 근거는 해당 버전의 이력으로 보존하고 영향받는 검사를 다시 수행한다. 이미 `verified`인 작업도 아래 상태 전이에 따라 다시 연다.
+
+질문을 정상 정리한 도구 결과는 `status: ok`로 반환한다. `verdict`는 현재 범위의 정책과 반영안이 준비된 `ready`, 필요한 답변을 기다리는 `awaiting_answers`, 모호한 응답이나 충돌이 남은 `needs_clarification`이다. 각 결과에 미해결 질문 ID·영향받는 작업·변경 요약을 연결한다. 인터뷰의 `ready`는 작업의 상태 판정과 별개다. 도구 실행에 필요한 자료를 읽거나 기록할 수 없는 경우에는 원인과 함께 `status: blocked`를 반환한다.
+
+질문 대기는 항목별로 기록한다. 현재 작업의 구조·필수 인수 기준을 결정할 수 없는 실제 원인이 있을 때 호출자가 해당 작업에 `blocked`, 질문 ID·영향, `resume_state`를 기록한다. 후속 작업 질문은 확인 시점을 연결하고 현재 작업에서 독립적인 조사·환경 준비는 진행할 수 있다. 답변 수신 뒤 반영된 과제·지도·검증 경계와 기존 합의를 대조한 다음 원래 진행 단계로 재개한다.
+
+## QualityReview · 설계·코드 검토의 선택 확장
+
+`quality_policy: review-v1`인 TaskPacket에 적용한다. 새 작업과 재개하는 현재 작업에 이 정책과 필요한 검사를 기록한다. 기존 완료 작업의 근거는 당시 정책으로 보존하고, 해당 작업을 다시 열면 현재 정책을 적용한다. 정책이 없는 과거 v1 기록의 필드와 상태 의미는 유지한다.
+
+[task-quality-review](../task-quality-review/SKILL.md)는 `design`과 `code` 모드로 검토하고 `evidence/<task_id>/<mode>-review-<시도>.md`에 결과를 반환한다. 현재 범위의 권한·상태 전이·데이터 정합성·공개 인터페이스·동시성·실패 복구를 바꾸는 중요한 선택에는 설계 리뷰가 필요하다. 단순하고 이미 명확한 작업은 이유와 함께 설계 리뷰를 `not_applicable`로 기록할 수 있다. 코드 변경에는 코드 리뷰를 수행하며, 코드 변경이 없는 작업은 해당 범위와 이유를 적는다.
+
+기록에는 다음 정보를 둔다.
+
+- `review_id`, `mode`, `reviewed_refs`에 계획·작업·지도·코드 식별값과 실제 읽은 입력 파일을 기록한다.
+- `review_scope`에 요구·인수 기준·대상 파일·관련 호출 경로, `change_basis: diff | current_files`와 기준을 기록한다. `diff`는 기준 커밋과 작업 시작 전의 staged·unstaged·untracked 파일 스냅샷을 현재 파일과 대조한다. 스냅샷에는 복원 가능한 본문 또는 패치와 해시를 둔다. 기존 사용자 변경과 이번 작업 변경을 구분한다. 기준을 복구할 수 없으면 관련 현재 파일 전체를 검토하는 `current_files`로 범위를 명시하고 변경 귀속은 미확인으로 남긴다.
+- `reviewer_id`, `reviewer_mode: independent | self`, `independence_required`와 실행·완료 근거를 기록한다. 설계 리뷰는 이전 대화를 전달받지 않은 독립 리뷰어가 수행한다. 코드 리뷰도 가능한 환경에서는 독립 리뷰어가 수행하며, 지원되지 않을 때 `self`와 한계를 명시할 수 있다. 요구된 독립 검토를 수행하지 못했거나 입력을 읽지 못한 결과는 `not_run`이다.
+- `findings`에는 안정적인 ID, `severity: blocker | major | minor`, 위치·관련 요구, 발생 조건·영향·근거, `disposition: open | fixed | dismissed | accepted_risk`, 처리 이유·재검토 근거를 둔다. `fixed`는 수정 후 해당 문제와 영향받는 검사를 확인한 상태다. `dismissed`는 요구·코드 근거로 지적이 성립하지 않음을 설명한다. `accepted_risk`는 판단 주체·영향·후속 조치를 기록하며 필수 인수 기준 위반이나 확인된 주요 결함의 통과 근거로 사용할 수 없다.
+- `verdict`는 `pass | needs_work | not_run | not_applicable`이다. `pass`에는 현재 범위의 검토 완료와 blocker·major의 수정 확인 또는 근거 있는 기각이 필요하다. 미해결 주요 지적은 `needs_work`, 수행 불가는 `not_run`으로 남긴다. `not_applicable`에는 적용 대상이 없는 이유가 필요하다.
+
+리뷰어는 검토 자료를 읽고 지적을 반환한다. 호출자가 정책 공백을 고객 인터뷰, 기술 선택을 설계 대화, 구현 결함을 현재 과제의 수정으로 연결한다. 기본 한 차례 검토 후 주요 수정과 영향을 받은 범위를 재검토한다. 횟수·시간 소진 시 미해결 항목과 다음 조치를 기록한다. 리뷰 결과만으로 작업 상태를 바꾸거나 실행 검사의 통과를 만들지 않는다.
+
+계획·정책·코드 변경 뒤에는 영향받는 리뷰를 다시 확인한다. 문서 표현만 바뀐 경우에는 기존 근거의 적용 범위를 대조해 재사용 이유를 남길 수 있다. 리뷰 중 입력이 바뀌면 새 식별값으로 필요한 검토를 완료한 뒤 판정한다.
+
+### ImplementationChecks
+
+같은 정책의 구현 검사 목록을 현재 TaskPacket에 먼저 정하고 handoff에 실제 결과를 연결한다. 저장소의 검사 명령·CI·요구사항에서 적용되는 lint·타입·빌드·단위/통합·회귀 검사를 선택하고 각 항목의 `required` 여부와 이유를 기록한다. 언어나 프로젝트에 적용되지 않는 종류는 이유와 함께 `not_applicable`로 둔다.
+
+각 결과에 `check_id`, 종류, 명령·수행자, `code_ref`, 기대·실제 결과·근거, `result: pass | fail | not_run | not_applicable`를 남긴다. 실패·도구 부재·실행 생략은 해당 사실대로 기록한다. 요구된 테스트가 0건이거나 관련 테스트가 전부 skip이면 실행 명령의 성공만으로 `pass`를 부여하지 않는다. 필수 검사의 미실행·실패가 해소돼야 인계할 수 있다. 검사 요구를 변경할 때는 원문·프로젝트 기준 또는 실제 사용자 결정과 변경 이유를 남긴다.
+
+이 정책을 적용한 작업의 전이 조건을 아래 기본 상태 전이에 추가한다. `ready`에는 적용되는 설계 리뷰의 현재 `pass` 또는 근거 있는 `not_applicable`이 필요하다. `awaiting_joint_e2e`와 `verified`에는 설계·코드 리뷰의 유효한 결과, 필수 ImplementationChecks 충족, 미해결 주요 결함 없음이 함께 필요하다. 부족한 리뷰·검사 때문에 현재 진행이 막히면 호출자가 원인과 `resume_state`를 기록한다. `verified`에는 기존 공동 E2E 통과와 사용자 확인도 필요하다.
+
 ## MapSet
 
 필수 출력: `maps/objects.mmd`, `maps/flow.mmd`, `maps/index.md`, 이 협업에서 사람이 보는 `maps/view.html` 또는 기존 동등 산출물.
@@ -46,7 +92,7 @@
 
 필수 정보: 공통 식별값, 모드, 시도 ID, 인수 기준별 검사 종류·입력·명령/행동·기대·실제 결과·근거 경로, 미검증 범위, `verdict`, `blockers`.
 
-handoff에는 실제 Red/Green 근거·관련 회귀·지도 차이·공동 E2E 시나리오가 필요하다. `verdict`는 `ready_for_joint_e2e | needs_work | blocked`다.
+handoff에는 실제 Red/Green 근거·관련 회귀·지도 차이·공동 E2E 시나리오가 필요하다. `quality_policy: review-v1`이면 현재 QualityReview와 ImplementationChecks를 연결하고 위 확장 조건을 확인한다. `verdict`는 `ready_for_joint_e2e | needs_work | blocked`다.
 
 joint-e2e에는 실행 환경, 실제 진입점부터 관찰 결과까지의 범위, 외부 경계 대체 여부, 시나리오별 검사 종류(`manual_user | automated_browser | api_cli` 등)·수행자·결과와 `human_confirmation`이 필요하다. 수동 사용자 E2E와 자동 브라우저 E2E는 별도 시도로 기록하며 서로의 통과를 대체하지 않는다. `verdict`는 `pass | fail | partial | blocked`다. `human_confirmation`은 `pending` 또는 현재 시도·결과에 대한 사용자의 확인 발언/대화 참조다.
 
@@ -100,6 +146,7 @@ verdict: 해당 도구가 정의한 결과가 있으면 기입
 |---|---|
 | `planned → ready` | 범위·검증 인터페이스 합의, 지도 패키지 준비, 모든 선행 과제 verified |
 | `ready → implementing` | 현재 과제 선택, 합의한 과제·지도 버전을 읽음 |
+| `implementing → fixing` | 현재 코드 리뷰·구현 검사에서 확인한 결함과 같은 과제의 수정 범위 |
 | `implementing / fixing → awaiting_joint_e2e` | 현재 코드의 handoff ready_for_joint_e2e, 필수 구현 검사·지도 정합성 충족 |
 | `awaiting_joint_e2e → fixing` | 현재 시도의 실제 실패 근거. 요구 변경이면 먼저 과제·지도를 개정 |
 | `awaiting_joint_e2e → verified` | 현재 코드·기준의 필수 E2E pass, 사용자 결과 확인, 미해결 필수 기준 없음 |

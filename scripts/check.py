@@ -10,7 +10,7 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OWN = ("task-delivery", "task-design-dialogue", "task-maps", "task-evidence", "task-review", "contracts")
+OWN = ("task-delivery", "task-customer-interview", "task-design-dialogue", "task-quality-review", "task-maps", "task-evidence", "task-review", "contracts")
 
 
 def check_upstream():
