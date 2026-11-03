@@ -22,6 +22,10 @@
 
 `task-delivery`만 순서·재시도·멈춤·재개를 결정한다. 공개 기능은 아래 어댑터를 통해 공통 계약에 맞춘다. 파일을 읽어 에이전트가 수행하는 조합이며 함수 호출 API가 아니다.
 
+## 개념·규칙·출처 기본 점검
+
+`task-delivery`의 분석과 `task-quality-review`의 설계·코드 리뷰는 [공유 계약의 기본 점검](task-workflow-v1.md#개념과-규칙의-출처-연결)을 수행한다. 기록은 기존 `plan.md`의 요구·질문·인수 기준과 정의의 정본을 사용한다. 고객 의미·정책의 미확정점은 `task-customer-interview`, 기술 선택은 `task-design-dialogue`로 연결한다. 현재 작업·TDD 위임·독립 리뷰에 같은 정본과 적용 범위를 전달하고, `task-maps`·`task-review`는 이를 요약하며 `task-evidence`는 실제 결과를 대조한다. 정정의 적용·버전·재검증은 `task-delivery`가 기존 규칙으로 관리한다.
+
 ## 고객 인터뷰 연결
 
 `task-delivery`는 초기 요구 분석, 현재 작업의 `ready` 판정 전, 구현·검증 중 정책의 빈틈이나 충돌에서 [task-customer-interview](../task-customer-interview/SKILL.md)를 호출한다. 질문·답변의 원본은 `plan.md`의 [CustomerInterviewNote](task-workflow-v1.md#customerinterviewnote--고객-정책-확인의-선택-확장)다. 작업 MD는 관련 질문·요구·인수 기준을 연결한다. 기본 대화 경로는 사용자가 고객 또는 고객봇에 질문을 전달하고 답변을 가져오는 방식이다.

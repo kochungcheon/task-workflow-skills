@@ -132,7 +132,7 @@ section{margin-top:var(--s-7)}
 <header>
 <p class="eyebrow">TASK WORKFLOW · INDEPENDENT REVIEW · 2026.11.03</p>
 <h1>고객에게 확인하고, 설계와 코드를 검토한다.</h1>
-<p class="lead"><strong>task-delivery가 고객 답변과 독립 리뷰를 현재 작업의 기준으로 연결한다.</strong><br>고객 확인 → 설계·지도 → 독립 설계 리뷰 → TDD → 코드 리뷰·자동 검사 → 공동 E2E → 자기 설명으로 이어간다.</p>
+<p class="lead"><strong>task-delivery가 개념·규칙·출처를 확인하고 고객 답변과 독립 리뷰를 작업 기준으로 연결한다.</strong><br>고객 확인 → 설계·지도 → 독립 설계 리뷰 → TDD → 코드 리뷰·자동 검사 → 공동 E2E → 자기 설명으로 이어간다.</p>
 </header>
 <figure id="calls" aria-labelledby="calls-title">
 <div class="call-controller"><strong>task-delivery</strong><span>전체 흐름 관리 · 현재 과제 선택 · 대기 · 실패 복귀 · 다음 과제 결정</span></div>
@@ -156,19 +156,19 @@ section{margin-top:var(--s-7)}
 <svg class="ve-svg" id="step-svg" viewBox="0 0 1160 220" role="img" aria-label="독립적인 요구·코드·환경 조사를 하나의 초안에 합치고 작은 기능과 기술 선택을 찾는다.">
 <path class="ve-e" d="M300 116H410"/><text class="ve-el" x="355" y="102">입력</text>
 <path class="ve-e" d="M750 116H860"/><text class="ve-el" x="805" y="102">산출물</text>
-<g class="ve-n"><rect class="sh" x="30" y="55" width="270" height="130"/><text x="165" y="84">받는 맥락</text><text class="sub" id="step-in1" x="165" y="125">과제 원문 · 네 지시</text><text class="sub" id="step-in2" x="165" y="152">기존 코드 · 제약</text></g>
-<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">독립 조사 합치기 → 분해</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
+<g class="ve-n"><rect class="sh" x="30" y="55" width="270" height="130"/><text x="165" y="84">받는 맥락</text><text class="sub" id="step-in1" x="165" y="125">과제 원문 · 네 지시</text><text class="sub" id="step-in2" x="165" y="152">기존 코드 · 정의 · 제약</text></g>
+<g class="ve-n is-key"><rect class="sh" x="410" y="55" width="340" height="130"/><text id="step-skill" x="580" y="90">task-delivery</text><text class="sub" id="step-mode" x="580" y="125">조사 · 의미 확인 → 분해</text><text class="sub" id="step-kind" x="580" y="152">자동화층 · 흐름 관리</text></g>
 <g class="ve-n"><rect class="sh" x="860" y="55" width="270" height="130"/><text x="995" y="84">돌려주는 결과</text><text class="sub" id="step-out1" x="995" y="125">확정 요구 · 열린 정책</text><text class="sub" id="step-out2" x="995" y="152">작업 순서 · 계획 초안</text></g>
 </svg>
-<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">합쳐진 한 초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.</span></p><p id="step-caution">독립적인 읽기 전용 조사만 동시에 진행한다. 충돌·누락을 대조하고 애매한 조사는 순차로 한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
+<div class="step-note"><p><strong id="step-role">너의 역할</strong> · <span id="step-human">합쳐진 한 초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.</span></p><p id="step-caution">구현에 영향을 주는 용어·역할·관계와 규칙의 조건·예외·출처를 항상 확인한다. 중요한 모호함·공통 규칙의 해석 차이·출처 충돌은 기존 Q/R/AC에 연결한다.</p><a id="step-source" href="../skills/task-delivery/SKILL.md">이 단계의 근거 파일 ↗</a></div>
 </div>
 <figcaption><span class="fig-n">Fig. 1</span> <strong>고객 답변과 독립 리뷰를 현재 기능의 구현·검증 기준으로 연결한다.</strong> 4~11단계는 기능마다 반복하고, 새 정책 의문은 고객 인터뷰로 돌아간다.</figcaption>
 </figure>
 <section id="interview" aria-labelledby="interview-title">
 <div class="sec-head"><p class="ve-label">CUSTOMER POLICY</p><h2 id="interview-title">고객 답변을 요구와 검증 기준으로 연결한다.</h2></div>
 <figure>
-<div class="readout"><span class="chip">초기 요구 분석</span><span class="chip">현재 작업 ready 전</span><span class="chip">구현·E2E 중 새 의문</span></div>
-<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 370" role="img" aria-label="task-delivery가 세 지점에서 정책의 빈틈을 찾고 고객 인터뷰를 호출한다. 사용자가 질문을 고객에게 전달하고 실제 답변을 가져온다. 답변 출처와 해석을 plan.md에 기록하고 요구, 작업, 인수 기준을 갱신해 설계·구현·검증으로 재개한다.">
+<div class="readout"><span class="chip">초기 분석 · 의미 확인</span><span class="chip">현재 작업 ready 전</span><span class="chip">구현·E2E 중 새 의문</span></div>
+<div class="frame"><svg class="ve-svg" viewBox="0 0 1160 370" role="img" aria-label="task-delivery가 용어·역할·관계와 규칙·출처를 확인하고 세 지점에서 정책의 빈틈이 있으면 고객 인터뷰를 호출한다. 사용자가 질문을 고객에게 전달하고 실제 답변을 가져온다. 답변 출처와 해석을 plan.md에 기록하고 요구, 작업, 인수 기준을 갱신해 설계·구현·검증으로 재개한다.">
 <path class="ve-e" d="M240 120H310"/><text class="ve-el" x="275" y="106">호출한다</text>
 <path class="ve-e" d="M550 95H640"/><text class="ve-el" x="595" y="80">질문 제공</text>
 <path class="ve-e" d="M840 95H930"/><text class="ve-el" x="885" y="80">전달한다</text>
@@ -176,15 +176,16 @@ section{margin-top:var(--s-7)}
 <path class="ve-e" d="M640 145H550"/><text class="ve-el" x="595" y="132">답변 전달</text>
 <path class="ve-e is-hot" d="M430 170V265"/><text class="ve-el r" x="445" y="219">근거와 해석을 기록한다</text>
 <path class="ve-e" d="M790 307H900"/><text class="ve-el" x="845" y="293">반영·재개</text>
-<g class="ve-n"><rect class="sh" x="20" y="70" width="220" height="100"/><text x="130" y="100">task-delivery</text><text class="sub" x="130" y="140">정책의 빈틈·충돌 발견</text></g>
+<g class="ve-n"><rect class="sh" x="20" y="70" width="220" height="100"/><text x="130" y="100">task-delivery</text><text class="sub" x="130" y="140">의미 확인 → 정책 빈틈·충돌</text></g>
 <g class="ve-n is-key"><rect class="sh" x="310" y="70" width="240" height="100"/><text style="font-size:18px" x="430" y="100">task-customer-interview</text><text class="sub" x="430" y="140">질문 · 후속 확인 · 변경안</text></g>
 <g class="ve-n human"><rect class="sh" x="640" y="70" width="200" height="100"/><text x="740" y="100">사용자</text><text class="sub" x="740" y="140">질문·실제 답변 전달</text></g>
 <g class="ve-n human"><rect class="sh" x="930" y="70" width="210" height="100"/><text x="1035" y="100">고객사 · 고객봇</text><text class="sub" x="1035" y="140">업무 정책 · 예외 · 사례</text></g>
-<g class="ve-n file"><rect class="sh" x="310" y="265" width="480" height="86"/><text x="550" y="292">plan.md · 질문 · 답변 출처 · 해석</text><text class="sub" x="550" y="327">Q 질문 → R 요구 → T 작업 · AC 인수 기준</text></g>
+<g class="ve-n file"><rect class="sh" x="310" y="265" width="480" height="86"/><text x="550" y="292">plan.md · 실제 답변 · 정의·규칙 참조</text><text class="sub" x="550" y="327">Q 질문 → R 요구 → T 작업 · AC 인수 기준</text></g>
 <g class="ve-n"><rect class="sh" x="900" y="265" width="240" height="86"/><text x="1020" y="292">설계 · 지도 · TDD · E2E</text><text class="sub" x="1020" y="327">task-delivery가 진행 관리</text></g>
 </svg></div>
 <figcaption><span class="fig-n">Fig. 2</span> <strong>실제 고객 답변을 현재 기능의 기대 결과로 바꾼다.</strong> 모호한 답은 후속 질문으로 구체화하고, 정정 답변은 이전 이력을 보존해 영향받는 검증을 다시 연다.</figcaption>
 </figure>
+<p class="note">업무 범위에 맞는 기존 용어집·도메인 정의를 읽고 정본 한 곳을 참조한다. 실제 고객 답변·코드에서 관찰한 사실·AI 가정을 구분한다. 작고 명확한 과제는 기존 기록과 링크를 재사용한다.</p>
 <p class="note">질문을 작성하면 open, 고객에게 전달한 근거가 있으면 waiting으로 기록한다. 답변 대기는 질문별로 관리하고, 현재 작업의 필수 정책이 비어 있으면 해당 작업에 blocked와 resume_state를 남긴다. <a href="../skills/contracts/task-workflow-v1.md#customerinterviewnote--고객-정책-확인의-선택-확장">고객 확인 계약 ↗</a></p>
 </section>
 <section id="quality" aria-labelledby="quality-title">
@@ -194,15 +195,15 @@ section{margin-top:var(--s-7)}
 <text class="ve-bnd-t" x="30" y="32">TDD 전 · 중요한 설계</text>
 <path class="ve-e" d="M320 120H420"/><text class="ve-el" x="370" y="103">자료 전달</text>
 <path class="ve-e" d="M740 120H850"/><text class="ve-el" x="795" y="103">근거 반환</text>
-<g class="ve-n file"><rect class="sh" x="30" y="65" width="290" height="110"/><text x="175" y="94">요구 · 실제 고객 답변</text><text class="sub" x="175" y="131">계획 · 현재 작업 · 두 지도</text><text class="sub" x="175" y="157">관련 코드 · 적용 범위</text></g>
-<g class="ve-n is-key"><rect class="sh" x="420" y="65" width="320" height="110"/><text x="580" y="94">새 리뷰어 · design</text><text class="sub" x="580" y="131">이전 대화 없이 자료를 읽는다</text><text class="sub" x="580" y="157">가정 · 실패 경로 · 구현 가능성</text></g>
+<g class="ve-n file"><rect class="sh" x="30" y="65" width="290" height="110"/><text x="175" y="94">요구 · 실제 고객 답변</text><text class="sub" x="175" y="131">계획 · 현재 작업 · 두 지도</text><text class="sub" x="175" y="157">정의·규칙·출처 · 관련 코드</text></g>
+<g class="ve-n is-key"><rect class="sh" x="420" y="65" width="320" height="110"/><text x="580" y="94">새 리뷰어 · design</text><text class="sub" x="580" y="131">이전 대화 없이 자료를 읽는다</text><text class="sub" x="580" y="157">정의의 일관성 · 실패 경로</text></g>
 <g class="ve-n"><rect class="sh" x="850" y="65" width="280" height="110"/><text x="990" y="94">설계 지적 · 처리 근거</text><text class="sub" x="990" y="131">정책 공백 · 기술 결정</text><text class="sub" x="990" y="157">검토한 문서·코드 버전</text></g>
 <path class="ve-e is-async" d="M990 175V220H175V175"/><text class="ve-el" x="580" y="206">고객 인터뷰·설계 대화로 보완하고 영향 범위를 재검토한다</text>
 <text class="ve-bnd-t" x="30" y="278">구현 인계 전 · 실제 변경 코드</text>
 <path class="ve-e" d="M320 365H420"/><text class="ve-el" x="370" y="348">대조한다</text>
 <path class="ve-e" d="M740 365H850"/><text class="ve-el" x="795" y="348">근거 반환</text>
-<g class="ve-n file"><rect class="sh" x="30" y="310" width="290" height="110"/><text x="175" y="339">기준 시점 → 현재 코드</text><text class="sub" x="175" y="376">미커밋 변경 · 주변 호출 경로</text><text class="sub" x="175" y="402">요구 · 고객 정책 · 실행 근거</text></g>
-<g class="ve-n"><rect class="sh" x="420" y="310" width="320" height="110"/><text x="580" y="339">코드 리뷰 · 자동 검사</text><text class="sub" x="580" y="376">결함 · 권한 · 동시성 · 회귀</text><text class="sub" x="580" y="402">프로젝트의 lint · 타입 · 빌드</text></g>
+<g class="ve-n file"><rect class="sh" x="30" y="310" width="290" height="110"/><text x="175" y="339">기준 시점 → 현재 코드</text><text class="sub" x="175" y="376">미커밋 변경 · 주변 호출 경로</text><text class="sub" x="175" y="402">정의·정책 · 출처 · 실행 근거</text></g>
+<g class="ve-n"><rect class="sh" x="420" y="310" width="320" height="110"/><text x="580" y="339">코드 리뷰 · 자동 검사</text><text class="sub" x="580" y="376">조건·예외 · 권한·동시성·회귀</text><text class="sub" x="580" y="402">프로젝트의 lint · 타입 · 빌드</text></g>
 <g class="ve-n"><rect class="sh" x="850" y="310" width="280" height="110"/><text x="990" y="339">수정 · 영향 재검증</text><text class="sub" x="990" y="376">지적 · 검사별 결과를 연결</text><text class="sub" x="990" y="402">준비된 근거로 인계 · 공동 E2E</text></g>
 <path class="ve-e is-async" d="M990 420V470H175V420"/><text class="ve-el" x="580" y="456">코드·기준이 바뀌면 영향받는 검사와 리뷰를 다시 확인한다</text>
 </svg></div>
@@ -230,7 +231,7 @@ section{margin-top:var(--s-7)}
 <g class="ve-n human"><rect class="sh" x="610" y="180" width="215" height="70"/><text x="717" y="205">사용자 · 지도 읽기</text><text class="sub" x="717" y="231">현재 티켓 하나</text></g>
 <g class="ve-n is-key"><rect class="sh" x="900" y="117" width="210" height="95"/><text x="1005" y="151">리뷰·검사·지도</text><text class="sub" x="1005" y="185">인계 → E2E → 설명</text></g>
 </svg></div>
-<figcaption><strong>준비 단계의 결과는 한 설계 초안으로, 구현 중의 코드와 이해는 한 기능의 인계로 모인다.</strong> 독립성이 애매한 조사는 순차로 진행한다.</figcaption>
+<figcaption><strong>준비 단계의 결과는 한 설계 초안으로, 구현 중의 코드와 이해는 한 기능의 인계로 모인다.</strong> 위임에는 관련 정의·규칙·출처 참조를 함께 전달한다. 독립성이 애매한 조사는 순차로 진행한다.</figcaption>
 </figure>
 <figure id="workflow" data-route="handoff">
 <div class="change-controls" role="group" aria-label="워크플로우 분기 설명">
@@ -430,18 +431,18 @@ const steps=[
   {
     "title": "독립 조사 합치고 티켓 분해",
     "skill": "task-delivery",
-    "mode": "독립 조사 합치기 → 분해",
+    "mode": "조사 · 의미 확인 → 분해",
     "kind": "자동화층 · 대화와 흐름 관리",
     "input": [
       "과제 원문 · 네 지시",
-      "기존 코드 · 제약"
+      "기존 코드 · 정의 · 제약"
     ],
     "output": [
       "확정 요구 · 열린 정책",
       "작업 순서 · 계획 초안"
     ],
     "human": "합쳐진 한 초안에서 목표·제약·중요한 기술 갈림길을 함께 본다.",
-    "caution": "독립 조사 결과를 합치고 정책의 빈틈을 찾는다. 현재 기능과 공통 구조를 바꾸는 질문부터 고객에게 확인한다.",
+    "caution": "구현에 영향을 주는 용어·역할·관계와 규칙의 조건·예외·출처를 항상 확인한다. 중요한 모호함·공통 규칙의 해석 차이·출처 충돌은 기존 Q/R/AC에 연결한다.",
     "source": "../skills/task-delivery/assets/plan.md"
   },
   {
@@ -458,7 +459,7 @@ const steps=[
       "R 요구 → T 작업 · AC 인수 기준"
     ],
     "human": "복사할 질문을 고객사 담당자·챗봇에 전달하고 실제 답변을 가져온다.",
-    "caution": "초기 분석·ready 판정 전·구현과 검증 중 필요할 때 호출한다. 현재 필수 정책이 미확인이면 해당 작업에 대기 원인과 재개 단계를 기록한다.",
+    "caution": "기존 정의·고객 답변을 읽고 초기 분석·ready 판정 전·구현과 검증 중 필요한 정책을 질문한다. 실제 답변·코드 관찰·AI 가정을 구분하며 미확인 필수 정책의 대기 원인과 재개 단계를 기록한다.",
     "source": "../skills/task-customer-interview/SKILL.md"
   },
   {
@@ -502,14 +503,14 @@ const steps=[
     "kind": "도구층 · 문서에 담긴 가정 확인",
     "input": [
       "요구 · 고객 답변 · 계획 · 작업",
-      "지도 · 관련 코드 · 적용 범위"
+      "지도 · 코드 · 정의·규칙·출처"
     ],
     "output": [
       "설계 지적 · 위치 · 발생 조건",
       "처리 근거 · 검토 버전"
     ],
     "human": "정책 공백은 고객에게 확인하고, 현재 구현을 바꾸는 기술 선택은 함께 정한다.",
-    "caution": "이전 대화 없이 새 리뷰어가 지정 자료를 읽는다. 중요한 설계에 1회 검토하고 주요 수정의 영향 범위를 다시 확인한다. 필수 독립 검토 미실행은 not_run으로 기록한다.",
+    "caution": "이전 대화 없이 새 리뷰어가 지정 자료와 관련 정의·규칙·출처를 읽고 용어·주체·조건의 일치를 대조한다. 중요한 설계와 주요 수정의 영향을 검토하고 필수 독립 검토 미실행은 not_run으로 기록한다.",
     "source": "../skills/task-quality-review/SKILL.md"
   },
   {
@@ -519,14 +520,14 @@ const steps=[
     "kind": "공개 스킬 · 현재 기능에 적용",
     "input": [
       "현재 작업 · 같은 지도",
-      "합의한 기준 · 검증 지점"
+      "합의한 정의·규칙 · 출처 참조"
     ],
     "output": [
       "변경 코드",
       "Red · Green · 회귀 실행 근거"
     ],
     "human": "현재 기능의 지도와 누적 복습 문서를 읽는다. 중요한 설계 변경은 함께 정한다.",
-    "caution": "현재 기능 하나를 구현한다. 정책의 새 빈틈은 고객 인터뷰로 확인한 뒤 기준을 갱신하고 재개한다.",
+    "caution": "관련 정의·규칙·출처 참조를 함께 전달해 현재 기능 하나를 구현한다. 정책의 새 빈틈은 고객 인터뷰로 확인한 뒤 기준을 갱신하고 재개한다.",
     "source": "../skills/contracts/components.md"
   },
   {
@@ -536,14 +537,14 @@ const steps=[
     "kind": "도구층 · 실제 코드의 결함 검토",
     "input": [
       "기준 시점 → 현재 전체 변경",
-      "요구 · 고객 정책 · 주변 코드"
+      "정의·규칙·출처 · 주변 코드"
     ],
     "output": [
       "코드 지적 · 수정 · 재검토",
       "자동 검사 · 결과 · 미실행 사유"
     ],
     "human": "필수 동작과 주요 지적의 처리 근거를 읽고, 범위·정책이 달라지면 함께 정한다.",
-    "caution": "staged·unstaged·untracked 변경을 포함한다. 수행자는 프로젝트 자동 검사를 실행하고, 수정 뒤 영향받는 검사·리뷰를 다시 확인한다. 미실행·미해결 필수 항목은 인계 전에 해소한다.",
+    "caution": "정의·규칙의 조건·예외와 실제 변경을 출처에 맞춰 대조한다. staged·unstaged·untracked 변경을 포함해 자동 검사를 실행하고 수정 영향을 재검증한다. 미실행·미해결 필수 항목은 인계 전에 해소한다.",
     "source": "../skills/task-quality-review/SKILL.md"
   },
   {
