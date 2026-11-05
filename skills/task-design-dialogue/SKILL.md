@@ -3,12 +3,14 @@ name: task-design-dialogue
 description: 과제 MD와 코드의 사실을 바탕으로 사용자와 중요한 기술 선택을 문답하며 설계 결정을 plan.md에 남긴다. 초기 티켓 분해나 구현 중 설계 갈림길에서 사용한다.
 metadata:
   layer: tool
-  version: "1.4"
+  version: "1.5"
 ---
 
 # 사용자와 설계를 왕복하기
 
 입력은 원본 요구·기존 코드·`plan.md` 초안·현재 작업이다. 출력은 `plan.md`의 결정 ID·이유·남은 가정과, 작업/지도/검증 지점에 반영할 변경 요약이다. 단독 설계 대화에도 쓸 수 있다. 작업 상태 전이와 코드 구현은 호출자가 맡는다. [공유 계약의 PlanNote](../contracts/task-workflow-v1.md#plannote--대화-기반-계획의-선택-확장)를 따른다.
+
+Python 애플리케이션 설계이면 [Python 코드 가이드](../contracts/python-guidelines.md)와 기존 프로젝트 규약을 읽는다. 도메인 소유권·계층 호출·트랜잭션 경계를 설계 입력으로 사용하고, 현재 기능에서 적용할 구조와 검사 도구 선택을 기존 결정 기록에 연결한다.
 
 고객 정책이나 업무 예외가 미확인이라면 [task-customer-interview](../task-customer-interview/SKILL.md)로 확인하고 관련 질문 ID·답변 근거를 설계 입력으로 사용한다. 설계가 사용하는 개념·규칙은 [개념·규칙·출처 기본 점검](../contracts/task-workflow-v1.md#개념과-규칙의-출처-연결)의 정본·적용 범위를 참조한다. 코드에서 관찰한 동작과 고객이 요구한 정책을 각각 기록한다. 기술 판단을 위임받은 경우에도 고객사 고유 정책은 출처가 확인된 범위로 다룬다.
 

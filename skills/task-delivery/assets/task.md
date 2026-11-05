@@ -41,6 +41,7 @@ quality_policy: review-v1
 
 ## 설계·코드 리뷰와 구현 검사
 
+- 적용 코드 규약·설정 경로와 범위·예외 이유(Python은 설치된 가이드 포함):
 - 설계 리뷰 적용 여부·이유와 independence_required:
 - 구현 전 기준 커밋·기존 staged/unstaged/untracked 스냅샷 위치:
 - 코드 리뷰 change_basis(diff 또는 current_files)·대상 파일·관련 호출 경로:

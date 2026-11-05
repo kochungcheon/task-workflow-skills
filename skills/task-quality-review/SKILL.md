@@ -3,12 +3,14 @@ name: task-quality-review
 description: 중요한 설계를 새 컨텍스트에서 검토하고, 구현 뒤 실제 변경 코드와 요구·고객 정책·지도·검증의 차이를 찾는다. 구현 전 설계 검토와 인계 전 코드 리뷰에 사용한다.
 metadata:
   layer: tool
-  version: "1.1"
+  version: "1.2"
 ---
 
 # 근거를 읽고 설계와 구현을 검토하기
 
 `design`은 중요한 설계의 빈틈을, `code`는 현재 변경 코드의 결함과 문서 차이를 검토한다. 입력은 원문 요구·고객 답변·`plan.md`·현재 작업 MD·지도·관련 코드와 검토 범위다. [공유 계약](../contracts/task-workflow-v1.md)의 `QualityReview`와 `ToolResult`를 읽는다. 호출자는 검토 결과를 계획·구현·상태에 적용한다.
+
+Python 설계·코드를 검토하면 [Python 코드 가이드](../contracts/python-guidelines.md)와 소비 프로젝트에서 적용한 규약·검사 설정을 읽고 `reviewed_refs`에 포함한다. 적용 범위에 맞춰 도메인 경계, API·Service·Handler·Repository 호출, 트랜잭션 소유권을 대조한다. Ruff의 lint·format 결과와 타입 검사·동작 테스트는 각각의 실제 근거로 판단한다. 기존 규약과의 차이는 해당 작업의 결정·범위를 기준으로 검토한다.
 
 ## 범위와 버전을 고정하기
 

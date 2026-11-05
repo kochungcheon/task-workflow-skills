@@ -26,6 +26,10 @@
 
 `task-delivery`의 분석과 `task-quality-review`의 설계·코드 리뷰는 [공유 계약의 기본 점검](task-workflow-v1.md#개념과-규칙의-출처-연결)을 수행한다. 기록은 기존 `plan.md`의 요구·질문·인수 기준과 정의의 정본을 사용한다. 고객 의미·정책의 미확정점은 `task-customer-interview`, 기술 선택은 `task-design-dialogue`로 연결한다. 현재 작업·TDD 위임·독립 리뷰에 같은 정본과 적용 범위를 전달하고, `task-maps`·`task-review`는 이를 요약하며 `task-evidence`는 실제 결과를 대조한다. 정정의 적용·버전·재검증은 `task-delivery`가 기존 규칙으로 관리한다.
 
+## Python 애플리케이션 규약
+
+Python 작업은 [코드 가이드](python-guidelines.md)를 조건부로 읽는다. `task-delivery`가 소비 프로젝트의 기존 규약과 적용 범위를 확인하고, `task-design-dialogue`·`task-maps`·`task-quality-review`는 같은 기준으로 설계·지도·리뷰를 수행한다. 도메인별 API·Service·Handler·Repository의 책임과 Ruff 준비·검사 절차는 이 문서 한 곳에서 관리한다. 검사 명령과 실제 결과는 기존 TaskPacket의 `ImplementationChecks`에 연결한다.
+
 ## 고객 인터뷰 연결
 
 `task-delivery`는 초기 요구 분석, 현재 작업의 `ready` 판정 전, 구현·검증 중 정책의 빈틈이나 충돌에서 [task-customer-interview](../task-customer-interview/SKILL.md)를 호출한다. 질문·답변의 원본은 `plan.md`의 [CustomerInterviewNote](task-workflow-v1.md#customerinterviewnote--고객-정책-확인의-선택-확장)다. 작업 MD는 관련 질문·요구·인수 기준을 연결한다. 기본 대화 경로는 사용자가 고객 또는 고객봇에 질문을 전달하고 답변을 가져오는 방식이다.
@@ -57,6 +61,8 @@ EGM의 작성자·독립 검토자 분리와 문서·코드 대조 관점을 현
 ## tdd 어댑터
 
 현재 과제 하나와 합의한 검증 인터페이스를 전달한다. 해커톤 모드에서 서브 에이전트가 가능하면 TDD 구현을 위임하고, 호출자는 계획·지도·상태·사용자 소통과 결과 검토를 유지한다. 수행자는 테스트 하나의 실제 Red→최소 구현→Green을 반복하고 코드·실행 근거·막힌 결정을 반환한다. 공개 `implement`·`implement-spec`의 커밋/전체 실행 정책은 이 기능에 포함되지 않는다. 다음 과제와 공동 E2E의 판단은 호출자가 한다.
+
+Python 구현 수행자에게는 [코드 가이드](python-guidelines.md)의 경로, 소비 프로젝트의 적용 규약과 실제 lint·format·타입·테스트 명령도 전달한다. 수행자는 그 범위에서 구현하고 검사 근거를 반환한다.
 
 ## simple-english 문서 어댑터
 

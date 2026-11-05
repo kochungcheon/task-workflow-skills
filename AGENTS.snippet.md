@@ -1,3 +1,5 @@
 ## 구현 협업
 
 과제 MD를 함께 분석해 전체 구현 계획·작은 작업 MD·공유 지도·TDD·공동 E2E로 진행하거나 재개할 때 `.agents/skills/task-delivery/SKILL.md`를 읽는다. 3시간 해커톤·시험 대비는 해당 스킬의 해커톤 절차로 기능별 자기 설명과 누적 복습·기술 인터뷰 준비까지 연결한다. 고객 업무·정책·예외를 확인하거나 고객 답변을 요구에 반영할 때는 `.agents/skills/task-customer-interview/SKILL.md`, 기술 선택을 사용자와 문답하며 설계할 때는 `.agents/skills/task-design-dialogue/SKILL.md`, 독립 설계 검토나 변경 코드 리뷰는 `.agents/skills/task-quality-review/SKILL.md`, 지도만 요청하면 `.agents/skills/task-maps/SKILL.md`, 구현 인계·공동 검증·기능별 자기 설명은 `.agents/skills/task-evidence/SKILL.md`, 누적 복습·인터뷰 브리프만 만들거나 갱신할 때는 `.agents/skills/task-review/SKILL.md`를 읽는다. 여기의 경로는 프로젝트 루트 기준이며, 다른 스킬 폴더에 설치했다면 그 위치로 바꾼다. 실제 작업 범위는 사용자 요청을 따른다.
+
+Python 설계·구현·리뷰에서는 `.agents/skills/contracts/python-guidelines.md`를 읽고 프로젝트의 기존 규약·개발 환경·검사 설정과 적용 범위를 확인한다. 코드 가이드와 실제 검사 명령을 구현자·리뷰어에게 함께 전달한다.

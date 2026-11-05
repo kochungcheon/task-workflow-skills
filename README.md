@@ -41,3 +41,19 @@ Codex 개인 스킬 폴더에 설치하려면 `--target ~/.codex/skills`를 사�
 과제 MD 경로와 함께 `$task-delivery ./requirements.md`로 시작합니다. 해커톤 시작·고객 인터뷰·설계 문답·독립 리뷰·지도 갱신·구현 재개·공동 E2E·전체 복습까지 복사해 쓸 문장은 **[워크플로우 사용 예제](docs/usage-examples.md)**에 모았습니다. 영어 기술 문서를 따로 다듬을 때는 `simple-english`를 직접 호출할 수 있습니다.
 
 서버에 Chrome/Chromium이 없으면 [서버 미리보기 절차](skills/contracts/server-preview.md)를 사용합니다. 완성 HTML을 생성해 미리보기 서버로 제공하고, HTTP 응답·사용자 화면 확인·앱 기능 E2E를 따로 기록합니다.
+
+## Python 프로젝트에 적용하기
+
+[Python 코드 가이드](skills/contracts/python-guidelines.md)에 도메인별 구조, API → Service → Handler → Repository의 호출 규칙, 트랜잭션·오류·테스트 기준을 정리했습니다. 가이드는 스킬과 함께 설치되며, `task-delivery`와 설계·지도·리뷰 도구가 Python 작업에서 읽습니다. 기존 프로젝트의 명시된 규약과 적용 범위를 먼저 확인합니다.
+
+개발 도구가 필요한 새 프로젝트에는 Ruff의 lint와 formatter를 제안합니다. 설치할 환경·기존 설정을 확인한 뒤 아래 명령을 **소비 프로젝트의 `pyproject.toml`이 있는 디렉터리**에서 실행합니다. [Ruff 설치](https://docs.astral.sh/ruff/installation/) · [uv 설치](https://docs.astral.sh/uv/getting-started/installation/)
+
+첫 전체 검사 전에 가이드의 [설정과 적용 범위](skills/contracts/python-guidelines.md#설정과-적용-범위)를 반영해 설치된 스킬과 생성 산출물을 제외합니다.
+
+```bash
+uv add --dev ruff
+uv run ruff check .
+uv run ruff format --check .
+```
+
+설정 예시, 설치된 스킬·생성 산출물의 검사 제외, pip/venv 방식과 기존 도구가 있는 프로젝트의 적용 절차는 가이드에 있습니다. 개발 의존성과 잠금 파일은 소비 프로젝트에서 관리하고, 실행 결과는 현재 작업의 구현 검사 기록에 연결합니다.
